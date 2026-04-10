@@ -1,0 +1,481 @@
+{
+  "questions": [
+    {
+      "id": "q_001",
+      "question": "Phòng Engineering hiện có bao nhiêu nhân viên?",
+      "type": "single_hop",
+      "ground_truth": "Phòng Engineering hiện có 8 nhân viên.",
+      "reasoning_chain": [
+        "Xác định department Engineering (dept_001).",
+        "Đếm số employee có department_id = dept_001, kết quả là 8."
+      ],
+      "relevant_entity_ids": [
+        "dept_001"
+      ]
+    },
+    {
+      "id": "q_002",
+      "question": "Project nào đang ở trạng thái paused?",
+      "type": "single_hop",
+      "ground_truth": "Project đang ở trạng thái paused là Legacy CRM Sunset.",
+      "reasoning_chain": [
+        "Duyệt danh sách projects.",
+        "Tìm project có status = paused, kết quả là proj_015 Legacy CRM Sunset."
+      ],
+      "relevant_entity_ids": [
+        "proj_015"
+      ]
+    },
+    {
+      "id": "q_003",
+      "question": "Ai là head của phòng QA?",
+      "type": "single_hop",
+      "ground_truth": "Head của phòng QA là Nguyễn Thị Quỳnh.",
+      "reasoning_chain": [
+        "Xác định department QA (dept_006).",
+        "Lấy head_id của department này là emp_033, tương ứng Nguyễn Thị Quỳnh."
+      ],
+      "relevant_entity_ids": [
+        "dept_006",
+        "emp_033"
+      ]
+    },
+    {
+      "id": "q_004",
+      "question": "Atlas Design System sử dụng những tech stack chính nào?",
+      "type": "single_hop",
+      "ground_truth": "Atlas Design System sử dụng các tech stack chính là Figma, React, TypeScript và Storybook.",
+      "reasoning_chain": [
+        "Tìm project Atlas Design System.",
+        "Đọc phần description của project để lấy tech stack được nhắc tới."
+      ],
+      "relevant_entity_ids": [
+        "proj_008"
+      ]
+    },
+    {
+      "id": "q_005",
+      "question": "Incident nào vừa có severity critical vừa đang ở trạng thái open?",
+      "type": "single_hop",
+      "ground_truth": "Incident thỏa điều kiện là \"Support assistant returned outdated policy snippets\".",
+      "reasoning_chain": [
+        "Lọc incidents có severity = critical.",
+        "Trong nhóm đó, tìm incident có status = open, kết quả là inc_004."
+      ],
+      "relevant_entity_ids": [
+        "inc_004",
+        "proj_012"
+      ]
+    },
+    {
+      "id": "q_006",
+      "question": "Mạc Thiên An đang là head của phòng nào?",
+      "type": "single_hop",
+      "ground_truth": "Mạc Thiên An là head của phòng Design.",
+      "reasoning_chain": [
+        "Tìm employee Mạc Thiên An (emp_027).",
+        "Đối chiếu departments có head_id = emp_027, kết quả là Design."
+      ],
+      "relevant_entity_ids": [
+        "emp_027",
+        "dept_005"
+      ]
+    },
+    {
+      "id": "q_007",
+      "question": "CandidateFlow ATS hiện đang ở trạng thái gì?",
+      "type": "single_hop",
+      "ground_truth": "CandidateFlow ATS hiện đang ở trạng thái planning.",
+      "reasoning_chain": [
+        "Tìm project CandidateFlow ATS.",
+        "Đọc trường status của project, kết quả là planning."
+      ],
+      "relevant_entity_ids": [
+        "proj_010"
+      ]
+    },
+    {
+      "id": "q_008",
+      "question": "Công ty hiện có bao nhiêu incident severity critical?",
+      "type": "single_hop",
+      "ground_truth": "Công ty hiện có 5 incident severity critical.",
+      "reasoning_chain": [
+        "Duyệt toàn bộ incidents.",
+        "Đếm số incident có severity = critical, kết quả là 5."
+      ],
+      "relevant_entity_ids": [
+        "inc_001",
+        "inc_002",
+        "inc_003",
+        "inc_004",
+        "inc_005"
+      ]
+    },
+    {
+      "id": "q_009",
+      "question": "Manager của người đang lead project Orion Commerce Platform là ai?",
+      "type": "two_hop",
+      "ground_truth": "Người đang lead Orion Commerce Platform là Lý Khánh Linh, và manager của cô ấy là Phan Tuấn Kiệt.",
+      "reasoning_chain": [
+        "Tìm project_members của Orion Commerce Platform với role = lead, kết quả là emp_010 Lý Khánh Linh.",
+        "Lấy manager_id của emp_010 là emp_009, tương ứng Phan Tuấn Kiệt."
+      ],
+      "relevant_entity_ids": [
+        "proj_001",
+        "emp_010",
+        "emp_009"
+      ]
+    },
+    {
+      "id": "q_010",
+      "question": "Những ai trong cùng phòng với Phạm Gia Bảo có skill PostgreSQL ở mức expert?",
+      "type": "two_hop",
+      "ground_truth": "Trong cùng phòng với Phạm Gia Bảo, những người có skill PostgreSQL ở mức expert là Trần Đức Long, Nguyễn Văn Minh (Engineering) và Hoàng Nhật Anh.",
+      "reasoning_chain": [
+        "Xác định Phạm Gia Bảo thuộc phòng Engineering.",
+        "Trong các employee cùng department, lọc những người có employee_skill PostgreSQL ở mức expert."
+      ],
+      "relevant_entity_ids": [
+        "emp_004",
+        "dept_001",
+        "emp_002",
+        "emp_003",
+        "emp_008",
+        "skill_006"
+      ]
+    },
+    {
+      "id": "q_011",
+      "question": "Ai là owner của project liên quan đến incident \"Duplicate settlement rows in reconciliation summary\"?",
+      "type": "two_hop",
+      "ground_truth": "Project liên quan incident đó là LotusPay Reconciliation Engine và owner của dự án là Lê Mỹ Duyên.",
+      "reasoning_chain": [
+        "Từ incident inc_002, lấy related_project_id = proj_002.",
+        "Từ proj_002, lấy owner_id = emp_045, tương ứng Lê Mỹ Duyên."
+      ],
+      "relevant_entity_ids": [
+        "inc_002",
+        "proj_002",
+        "emp_045"
+      ]
+    },
+    {
+      "id": "q_012",
+      "question": "Department của manager của Nguyễn Văn Minh làm QA Analyst là phòng nào?",
+      "type": "two_hop",
+      "ground_truth": "Nguyễn Văn Minh làm QA Analyst có manager là Nguyễn Thị Quỳnh, và manager này thuộc phòng QA.",
+      "reasoning_chain": [
+        "Xác định Nguyễn Văn Minh làm QA Analyst là emp_034 và manager_id của anh ấy là emp_033 Nguyễn Thị Quỳnh.",
+        "Lấy department_id của emp_033, kết quả là dept_006 QA."
+      ],
+      "relevant_entity_ids": [
+        "emp_034",
+        "emp_033",
+        "dept_006"
+      ]
+    },
+    {
+      "id": "q_013",
+      "question": "Ai là manager của người được giao xử lý incident \"Support assistant returned outdated policy snippets\"?",
+      "type": "two_hop",
+      "ground_truth": "Người được giao xử lý incident này là La Minh Tâm, và manager của anh ấy là Mai Lan Hương.",
+      "reasoning_chain": [
+        "Từ inc_004, lấy assigned_to = emp_018 La Minh Tâm.",
+        "Lấy manager_id của emp_018 là emp_016 Mai Lan Hương."
+      ],
+      "relevant_entity_ids": [
+        "inc_004",
+        "emp_018",
+        "emp_016"
+      ]
+    },
+    {
+      "id": "q_014",
+      "question": "Những project nào thuộc department Product nhưng được owner bởi người của Data?",
+      "type": "two_hop",
+      "ground_truth": "Có 2 project thỏa điều kiện: Insight360 Analytics và ChatCare Support Assistant. Cả hai đều thuộc department Product nhưng owner lần lượt là Mai Lan Hương và La Minh Tâm từ department Data.",
+      "reasoning_chain": [
+        "Lọc các project có department_id = dept_002 Product.",
+        "So sánh department của owner từng project và giữ lại các project có owner thuộc dept_003 Data."
+      ],
+      "relevant_entity_ids": [
+        "dept_002",
+        "dept_003",
+        "proj_006",
+        "proj_012",
+        "emp_016",
+        "emp_018"
+      ]
+    },
+    {
+      "id": "q_015",
+      "question": "Người báo incident \"CDN cache rule served stale JavaScript bundle\" đang thuộc department nào?",
+      "type": "two_hop",
+      "ground_truth": "Người báo incident này là Lâm Quốc Việt và anh ấy thuộc department DevOps.",
+      "reasoning_chain": [
+        "Từ inc_009, lấy reporter_id = emp_023 Lâm Quốc Việt.",
+        "Lấy department_id của emp_023, kết quả là dept_004 DevOps."
+      ],
+      "relevant_entity_ids": [
+        "inc_009",
+        "emp_023",
+        "dept_004"
+      ]
+    },
+    {
+      "id": "q_016",
+      "question": "Ai là head của department mà project Treasury Forecast Hub thuộc về?",
+      "type": "two_hop",
+      "ground_truth": "Treasury Forecast Hub thuộc department Finance và head của department này là Lê Mỹ Duyên.",
+      "reasoning_chain": [
+        "Từ project Treasury Forecast Hub, lấy department_id = dept_008 Finance.",
+        "Từ department Finance, lấy head_id = emp_045 Lê Mỹ Duyên."
+      ],
+      "relevant_entity_ids": [
+        "proj_011",
+        "dept_008",
+        "emp_045"
+      ]
+    },
+    {
+      "id": "q_017",
+      "question": "Manager của người báo incident \"Regression suite blocked merge queue for four hours\" là ai?",
+      "type": "two_hop",
+      "ground_truth": "Người báo incident này là Vi Khánh Ngọc và manager của cô ấy là Nguyễn Thị Quỳnh.",
+      "reasoning_chain": [
+        "Từ inc_007, lấy reporter_id = emp_036 Vi Khánh Ngọc.",
+        "Lấy manager_id của emp_036 là emp_033 Nguyễn Thị Quỳnh."
+      ],
+      "relevant_entity_ids": [
+        "inc_007",
+        "emp_036",
+        "emp_033"
+      ]
+    },
+    {
+      "id": "q_018",
+      "question": "Những project nào do Lý Khánh Linh sở hữu và thuộc department Engineering?",
+      "type": "two_hop",
+      "ground_truth": "Lý Khánh Linh đang sở hữu 2 project thuộc department Engineering là Orion Commerce Platform và Legacy CRM Sunset.",
+      "reasoning_chain": [
+        "Tìm các project có owner_id = emp_010 Lý Khánh Linh.",
+        "Trong đó lọc các project có department_id = dept_001 Engineering."
+      ],
+      "relevant_entity_ids": [
+        "emp_010",
+        "dept_001",
+        "proj_001",
+        "proj_015"
+      ]
+    },
+    {
+      "id": "q_019",
+      "question": "Incident severity critical nào liên quan đến các project thuộc department của Đặng Quốc Trung?",
+      "type": "three_hop",
+      "ground_truth": "Đặng Quốc Trung thuộc department Product, và incident severity critical liên quan đến project của department này là \"Support assistant returned outdated policy snippets\".",
+      "reasoning_chain": [
+        "Xác định Đặng Quốc Trung (emp_012) thuộc department Product.",
+        "Tìm các project có department_id = Product.",
+        "Trong các incident severity critical, lấy incident có related_project_id thuộc nhóm project đó; kết quả là inc_004."
+      ],
+      "relevant_entity_ids": [
+        "emp_012",
+        "dept_002",
+        "inc_004",
+        "proj_012"
+      ]
+    },
+    {
+      "id": "q_020",
+      "question": "Senior engineer nào đang làm reviewer cho dự án active mà manager của Đặng Quốc Trung đang own?",
+      "type": "three_hop",
+      "ground_truth": "Manager của Đặng Quốc Trung là Lý Khánh Linh. Dự án active mà cô ấy own là Orion Commerce Platform, và senior engineer đang làm reviewer cho dự án này là Lâm Quốc Việt.",
+      "reasoning_chain": [
+        "Từ Đặng Quốc Trung, lấy manager_id = emp_010 Lý Khánh Linh.",
+        "Tìm project active do emp_010 own, kết quả là proj_001 Orion Commerce Platform.",
+        "Trong project_members của proj_001, tìm reviewer là emp_023 Lâm Quốc Việt, một senior Platform Engineer."
+      ],
+      "relevant_entity_ids": [
+        "emp_012",
+        "emp_010",
+        "proj_001",
+        "emp_023"
+      ]
+    },
+    {
+      "id": "q_021",
+      "question": "Department head của người được giao incident \"Checkout API timeout spike during merchant flash sale\" là ai?",
+      "type": "three_hop",
+      "ground_truth": "Người được giao incident này là Khưu Anh Thư thuộc department DevOps, và department head của cô ấy là Võ Thanh Sơn.",
+      "reasoning_chain": [
+        "Từ inc_001, lấy assigned_to = emp_022 Khưu Anh Thư.",
+        "Lấy department_id của emp_022, kết quả là dept_004 DevOps.",
+        "Từ department DevOps, lấy head_id = emp_021 Võ Thanh Sơn."
+      ],
+      "relevant_entity_ids": [
+        "inc_001",
+        "emp_022",
+        "dept_004",
+        "emp_021"
+      ]
+    },
+    {
+      "id": "q_022",
+      "question": "Người cùng manager với Phùng Gia Hân đang own project active nào?",
+      "type": "three_hop",
+      "ground_truth": "Phùng Gia Hân có cùng manager Mai Lan Hương với La Minh Tâm. Trong nhóm cùng manager đó, La Minh Tâm đang own project active là ChatCare Support Assistant.",
+      "reasoning_chain": [
+        "Xác định manager của Phùng Gia Hân là emp_016 Mai Lan Hương.",
+        "Tìm các employee khác cũng có manager_id = emp_016.",
+        "Trong nhóm đó, tìm người đang own project active; kết quả là emp_018 La Minh Tâm với proj_012 ChatCare Support Assistant."
+      ],
+      "relevant_entity_ids": [
+        "emp_020",
+        "emp_016",
+        "emp_018",
+        "proj_012"
+      ]
+    },
+    {
+      "id": "q_023",
+      "question": "Project active nào thuộc department của manager của Nguyễn Văn Minh ở Engineering nhưng do người ngoài department đó sở hữu?",
+      "type": "three_hop",
+      "ground_truth": "Nguyễn Văn Minh ở Engineering có manager là Trần Đức Long, thuộc department Engineering. Project active thuộc department này nhưng do người ngoài department sở hữu là Orion Commerce Platform, được owner bởi Lý Khánh Linh từ Product.",
+      "reasoning_chain": [
+        "Xác định Nguyễn Văn Minh ở Engineering là emp_003 và manager của anh ấy là emp_002 Trần Đức Long.",
+        "Lấy department của emp_002 là Engineering.",
+        "Trong các project active thuộc Engineering, chọn project có owner thuộc department khác; kết quả là proj_001 Orion Commerce Platform."
+      ],
+      "relevant_entity_ids": [
+        "emp_003",
+        "emp_002",
+        "dept_001",
+        "proj_001",
+        "emp_010"
+      ]
+    },
+    {
+      "id": "q_024",
+      "question": "Ai là head của department chứa người reviewer cho project mà incident \"Duplicate settlement rows in reconciliation summary\" đang liên quan?",
+      "type": "three_hop",
+      "ground_truth": "Incident này liên quan đến LotusPay Reconciliation Engine. Reviewer của project là Từ Hoàng Phúc thuộc Finance, và head của department đó là Lê Mỹ Duyên.",
+      "reasoning_chain": [
+        "Từ inc_002, lấy related_project_id = proj_002.",
+        "Trong project_members của proj_002, tìm member có role = reviewer là emp_046 Từ Hoàng Phúc.",
+        "Lấy department của emp_046 là Finance và head của department này là emp_045 Lê Mỹ Duyên."
+      ],
+      "relevant_entity_ids": [
+        "inc_002",
+        "proj_002",
+        "emp_046",
+        "dept_008",
+        "emp_045"
+      ]
+    },
+    {
+      "id": "q_025",
+      "question": "Trong project active do La Minh Tâm làm owner, ai thuộc department Design và đang làm designer?",
+      "type": "three_hop",
+      "ground_truth": "Project active do La Minh Tâm làm owner là ChatCare Support Assistant. Thành viên thuộc department Design và đang làm designer trong dự án này là Lưu Diễm Quỳnh.",
+      "reasoning_chain": [
+        "Xác định La Minh Tâm là owner của project active proj_012 ChatCare Support Assistant.",
+        "Duyệt project_members của proj_012 để tìm member có role = designer.",
+        "Đối chiếu employee của member đó và xác nhận người thuộc department Design là emp_030 Lưu Diễm Quỳnh."
+      ],
+      "relevant_entity_ids": [
+        "emp_018",
+        "proj_012",
+        "emp_030",
+        "dept_005"
+      ]
+    },
+    {
+      "id": "q_026",
+      "question": "Head của department quản lý người được assign incident \"Offer approval SLA breached for engineering candidates\" là ai?",
+      "type": "three_hop",
+      "ground_truth": "Người được assign incident này là Cao Nhật Minh thuộc department HR, và head của department đó là Vương Thanh Hà.",
+      "reasoning_chain": [
+        "Từ inc_013, lấy assigned_to = emp_041 Cao Nhật Minh.",
+        "Lấy department_id của emp_041 là dept_007 HR.",
+        "Từ department HR, lấy head_id = emp_039 Vương Thanh Hà."
+      ],
+      "relevant_entity_ids": [
+        "inc_013",
+        "emp_041",
+        "dept_007",
+        "emp_039"
+      ]
+    },
+    {
+      "id": "q_027",
+      "question": "Nguyễn Văn Minh đang làm việc ở department nào?",
+      "type": "ambiguous",
+      "ground_truth": "Có 2 nhân viên tên Nguyễn Văn Minh. Nguyễn Văn Minh (emp_003) là Senior Backend Engineer thuộc Engineering, còn Nguyễn Văn Minh (emp_034) là QA Analyst thuộc QA.",
+      "reasoning_chain": [
+        "Tìm tất cả employee có tên Nguyễn Văn Minh.",
+        "Đối chiếu từng người với department_id để trả ra cả hai department khác nhau."
+      ],
+      "relevant_entity_ids": [
+        "emp_003",
+        "dept_001",
+        "emp_034",
+        "dept_006"
+      ]
+    },
+    {
+      "id": "q_028",
+      "question": "Nguyễn Văn Minh đang tham gia những dự án nào?",
+      "type": "ambiguous",
+      "ground_truth": "Có 2 người tên Nguyễn Văn Minh. Nguyễn Văn Minh ở Engineering tham gia Orion Commerce Platform và Legacy CRM Sunset; Nguyễn Văn Minh ở QA tham gia Beacon Mobile App và Legacy CRM Sunset.",
+      "reasoning_chain": [
+        "Tìm hai employee cùng tên Nguyễn Văn Minh.",
+        "Tra project_members theo từng employee_id để lấy danh sách project tham gia riêng cho từng người."
+      ],
+      "relevant_entity_ids": [
+        "emp_003",
+        "emp_034",
+        "proj_001",
+        "proj_007",
+        "proj_015"
+      ]
+    },
+    {
+      "id": "q_029",
+      "question": "Manager của Nguyễn Văn Minh là ai?",
+      "type": "ambiguous",
+      "ground_truth": "Câu hỏi này mơ hồ vì có 2 Nguyễn Văn Minh. Nguyễn Văn Minh ở Engineering có manager là Trần Đức Long, còn Nguyễn Văn Minh ở QA có manager là Nguyễn Thị Quỳnh.",
+      "reasoning_chain": [
+        "Tìm hai employee tên Nguyễn Văn Minh.",
+        "Lấy manager_id của từng người để trả ra hai manager khác nhau."
+      ],
+      "relevant_entity_ids": [
+        "emp_003",
+        "emp_002",
+        "emp_034",
+        "emp_033"
+      ]
+    },
+    {
+      "id": "q_030",
+      "question": "Nguyễn Văn Minh có những skill nổi bật nào?",
+      "type": "ambiguous",
+      "ground_truth": "Có 2 nhân viên tên Nguyễn Văn Minh. Người ở Engineering nổi bật với Java, Spring Boot, PostgreSQL và Kafka; người ở QA nổi bật với Cypress, SQL, Agile Delivery và JMeter.",
+      "reasoning_chain": [
+        "Tìm hai employee có tên Nguyễn Văn Minh.",
+        "Tra employee_skills của từng người và nhóm theo employee để tránh gộp nhầm hai hồ sơ."
+      ],
+      "relevant_entity_ids": [
+        "emp_003",
+        "emp_034",
+        "skill_001",
+        "skill_002",
+        "skill_006",
+        "skill_008",
+        "skill_029",
+        "skill_019",
+        "skill_018",
+        "skill_030"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+[project]
+name = "kg-rag-benchmark"
+version = "0.1.0"
+description = "Knowledge Graph Augmented RAG vs Traditional RAG benchmark"
+requires-python = ">=3.11"
+
+dependencies = [
+    # LLM
+    "openai",
+
+    # Graph
+    "neo4j>=5.0.0",
+    "networkx>=3.0",          # fallback / visualization
+
+    # Vector store
+    "sqlite-vec>=0.1.0",
+    "numpy>=1.26.0",
+
+    # Embedding
+    "sentence-transformers>=3.0.0",
+
+    # BM25
+    "rank-bm25>=0.2.2",
+
+    # Reranking
+    "flashrank>=0.2.0",        # cross-encoder reranker, no GPU needed
+
+    # Markdown parsing (chunking)
+    "markdown-it-py>=3.0.0",
+
+    # Config
+    "pyyaml>=6.0",
+    "pydantic>=2.0.0",
+
+    # Eval & results
+    "pandas>=2.0.0",
+    "tqdm>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+    "rich",       # pretty print results
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pipeline"]

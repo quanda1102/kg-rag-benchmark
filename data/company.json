@@ -1,0 +1,2524 @@
+{
+  "departments": [
+    {
+      "id": "dept_001",
+      "name": "Engineering",
+      "description": "Phòng Engineering xây dựng các nền tảng cốt lõi, API và ứng dụng phục vụ khách hàng nội bộ lẫn bên ngoài. Nhóm chịu trách nhiệm về kiến trúc hệ thống, hiệu năng và chất lượng triển khai ở môi trường production.",
+      "head_id": "emp_001"
+    },
+    {
+      "id": "dept_002",
+      "name": "Product",
+      "description": "Phòng Product xác định bài toán, ưu tiên roadmap và phối hợp các nhóm để đưa tính năng ra thị trường. Nhóm tập trung vào discovery, requirement, KPI sản phẩm và cân bằng giữa giá trị người dùng với mục tiêu kinh doanh.",
+      "head_id": "emp_009"
+    },
+    {
+      "id": "dept_003",
+      "name": "Data",
+      "description": "Phòng Data quản lý pipeline dữ liệu, phân tích vận hành và các mô hình machine learning phục vụ quyết định kinh doanh. Nhóm làm việc chặt với Engineering và Product để biến dữ liệu thành insight hành động.",
+      "head_id": "emp_015"
+    },
+    {
+      "id": "dept_004",
+      "name": "DevOps",
+      "description": "Phòng DevOps vận hành hạ tầng cloud, CI/CD, quan sát hệ thống và bảo mật nền tảng. Nhóm giúp các dự án triển khai nhanh nhưng vẫn kiểm soát được độ ổn định, chi phí và khả năng mở rộng.",
+      "head_id": "emp_021"
+    },
+    {
+      "id": "dept_005",
+      "name": "Design",
+      "description": "Phòng Design phụ trách trải nghiệm người dùng, thiết kế giao diện và hệ thống nhận diện xuyên suốt các sản phẩm số. Nhóm đảm bảo sản phẩm nhất quán, dễ dùng và phản ánh đúng định vị thương hiệu của công ty.",
+      "head_id": "emp_027"
+    },
+    {
+      "id": "dept_006",
+      "name": "QA",
+      "description": "Phòng QA xây dựng chiến lược kiểm thử, tự động hóa regression và theo dõi chất lượng phát hành. Nhóm làm việc cùng Engineering và Product để giảm lỗi production và tăng độ tin cậy của release.",
+      "head_id": "emp_033"
+    },
+    {
+      "id": "dept_007",
+      "name": "HR",
+      "description": "Phòng HR phụ trách tuyển dụng, phát triển con người và vận hành các chính sách nội bộ. Nhóm hỗ trợ mở rộng tổ chức, giữ chân nhân sự và bảo đảm trải nghiệm nhân viên nhất quán.",
+      "head_id": "emp_039"
+    },
+    {
+      "id": "dept_008",
+      "name": "Finance",
+      "description": "Phòng Finance quản lý ngân sách, dự báo tài chính, mua sắm và kiểm soát chi phí vận hành. Nhóm cung cấp góc nhìn tài chính để các bộ phận đầu tư đúng chỗ và theo dõi hiệu quả sử dụng nguồn lực.",
+      "head_id": "emp_045"
+    }
+  ],
+  "employees": [
+    {
+      "id": "emp_001",
+      "name": "Lê Quang Huy",
+      "role": "CEO & Engineering Director",
+      "level": "director",
+      "department_id": "dept_001",
+      "manager_id": null,
+      "joined_date": "2018-03-12",
+      "bio": "Huy là người sáng lập TechViet Solutions và vẫn trực tiếp dẫn dắt định hướng kỹ thuật của công ty. Anh có kinh nghiệm xây dựng hệ thống SaaS quy mô lớn, kiến trúc microservices và tổ chức đội ngũ engineering nhiều lớp."
+    },
+    {
+      "id": "emp_002",
+      "name": "Trần Đức Long",
+      "role": "Engineering Manager",
+      "level": "manager",
+      "department_id": "dept_001",
+      "manager_id": "emp_001",
+      "joined_date": "2019-06-03",
+      "bio": "Long phụ trách delivery của nhóm engineering với nền tảng backend Java và distributed systems. Anh mạnh về thiết kế API, quản trị technical debt và coaching kỹ sư mid lên senior."
+    },
+    {
+      "id": "emp_003",
+      "name": "Nguyễn Văn Minh",
+      "role": "Senior Backend Engineer",
+      "level": "senior",
+      "department_id": "dept_001",
+      "manager_id": "emp_002",
+      "joined_date": "2021-02-15",
+      "bio": "Minh chuyên về hệ thống thanh toán, xử lý giao dịch và tối ưu PostgreSQL cho workload lớn. Anh từng tham gia nhiều dự án cần consistency cao và giám sát latency theo thời gian thực."
+    },
+    {
+      "id": "emp_004",
+      "name": "Phạm Gia Bảo",
+      "role": "Backend Engineer",
+      "level": "mid",
+      "department_id": "dept_001",
+      "manager_id": "emp_002",
+      "joined_date": "2022-04-11",
+      "bio": "Bảo tập trung vào dịch vụ backend viết bằng Go và Spring Boot, đặc biệt là API cho sản phẩm thương mại điện tử. Anh có kinh nghiệm refactor service cũ và chuẩn hóa logging, tracing."
+    },
+    {
+      "id": "emp_005",
+      "name": "Đỗ Hải Nam",
+      "role": "Frontend Engineer",
+      "level": "senior",
+      "department_id": "dept_001",
+      "manager_id": "emp_002",
+      "joined_date": "2020-09-01",
+      "bio": "Nam xây dựng giao diện React cho dashboard vận hành và các luồng quản trị phức tạp. Anh quan tâm đến hiệu năng render, accessibility và thiết kế component tái sử dụng."
+    },
+    {
+      "id": "emp_006",
+      "name": "Bùi Thu Trang",
+      "role": "Fullstack Engineer",
+      "level": "mid",
+      "department_id": "dept_001",
+      "manager_id": "emp_002",
+      "joined_date": "2023-01-09",
+      "bio": "Trang có thể làm việc xuyên suốt từ React đến Node.js, phù hợp với các dự án MVP cần tốc độ. Cô thường hỗ trợ kết nối giữa Product, Design và Engineering trong giai đoạn pilot."
+    },
+    {
+      "id": "emp_007",
+      "name": "Vũ Minh Khoa",
+      "role": "Mobile Engineer",
+      "level": "mid",
+      "department_id": "dept_001",
+      "manager_id": "emp_002",
+      "joined_date": "2022-08-22",
+      "bio": "Khoa phát triển ứng dụng di động bằng React Native và tối ưu trải nghiệm đồng bộ dữ liệu ngoại tuyến. Anh có kinh nghiệm xử lý crash analytics và release mobile theo chu kỳ ngắn."
+    },
+    {
+      "id": "emp_008",
+      "name": "Hoàng Nhật Anh",
+      "role": "Solution Architect",
+      "level": "lead",
+      "department_id": "dept_001",
+      "manager_id": "emp_001",
+      "joined_date": "2019-11-18",
+      "bio": "Nhật Anh hỗ trợ các dự án phức tạp về kiến trúc tích hợp, event-driven design và mô hình phân tách domain. Anh thường đóng vai trò review các quyết định kỹ thuật mang tính nền tảng."
+    },
+    {
+      "id": "emp_009",
+      "name": "Phan Tuấn Kiệt",
+      "role": "Head of Product",
+      "level": "manager",
+      "department_id": "dept_002",
+      "manager_id": "emp_001",
+      "joined_date": "2019-01-07",
+      "bio": "Kiệt dẫn dắt chiến lược sản phẩm của công ty, từ discovery đến đo lường business outcome. Anh mạnh về xây dựng portfolio sản phẩm B2B và điều phối nhiều stakeholder cùng lúc."
+    },
+    {
+      "id": "emp_010",
+      "name": "Lý Khánh Linh",
+      "role": "Senior Product Manager",
+      "level": "lead",
+      "department_id": "dept_002",
+      "manager_id": "emp_009",
+      "joined_date": "2020-05-04",
+      "bio": "Linh quản lý các sản phẩm commerce và growth, giỏi chuyển mục tiêu kinh doanh thành backlog rõ ràng. Cô có kinh nghiệm làm việc với team kỹ thuật để cân bằng tốc độ ra mắt và độ ổn định hệ thống."
+    },
+    {
+      "id": "emp_011",
+      "name": "Tạ Ngọc Mai",
+      "role": "Product Manager",
+      "level": "lead",
+      "department_id": "dept_002",
+      "manager_id": "emp_009",
+      "joined_date": "2021-07-12",
+      "bio": "Mai phụ trách các sản phẩm nội bộ và mobile, nổi bật ở việc nghiên cứu hành vi người dùng và thiết kế KPI adoption. Cô thường dẫn dắt các buổi discovery liên phòng ban."
+    },
+    {
+      "id": "emp_012",
+      "name": "Đặng Quốc Trung",
+      "role": "Business Analyst",
+      "level": "senior",
+      "department_id": "dept_002",
+      "manager_id": "emp_010",
+      "joined_date": "2022-02-14",
+      "bio": "Trung phân tích yêu cầu nghiệp vụ, chuẩn hóa flow và tài liệu hóa quyết định sản phẩm. Anh có thế mạnh trong việc làm rõ dependency giữa finance, operations và engineering."
+    },
+    {
+      "id": "emp_013",
+      "name": "Hồ Bảo Châu",
+      "role": "Product Owner",
+      "level": "senior",
+      "department_id": "dept_002",
+      "manager_id": "emp_010",
+      "joined_date": "2021-10-25",
+      "bio": "Châu tập trung vào execution của backlog, quản lý scope và phối hợp release với QA. Anh quen với môi trường sprint ngắn, nhiều bên liên quan và yêu cầu thay đổi liên tục."
+    },
+    {
+      "id": "emp_014",
+      "name": "Dương Thảo Vy",
+      "role": "Product Analyst",
+      "level": "mid",
+      "department_id": "dept_002",
+      "manager_id": "emp_011",
+      "joined_date": "2023-03-20",
+      "bio": "Thảo Vy theo dõi funnel sản phẩm, phân tích hành vi và hỗ trợ team chạy experiment. Cô có kinh nghiệm viết dashboard sản phẩm và diễn giải dữ liệu cho stakeholder không chuyên."
+    },
+    {
+      "id": "emp_015",
+      "name": "Nguyễn Hữu Phúc",
+      "role": "Head of Data",
+      "level": "manager",
+      "department_id": "dept_003",
+      "manager_id": "emp_001",
+      "joined_date": "2019-04-15",
+      "bio": "Phúc phụ trách chiến lược dữ liệu và machine learning, từ hạ tầng ingest đến mô hình dự báo. Anh đã xây nhiều team data phục vụ cả analytics lẫn production ML."
+    },
+    {
+      "id": "emp_016",
+      "name": "Mai Lan Hương",
+      "role": "Senior Data Scientist",
+      "level": "lead",
+      "department_id": "dept_003",
+      "manager_id": "emp_015",
+      "joined_date": "2020-08-10",
+      "bio": "Lan Hương chuyên về mô hình phân cụm, dự báo và đánh giá tác động sản phẩm bằng thống kê. Cô thường bridge giữa nhu cầu kinh doanh và triển khai mô hình trong pipeline thực tế."
+    },
+    {
+      "id": "emp_017",
+      "name": "Trịnh Quốc An",
+      "role": "Data Engineer",
+      "level": "senior",
+      "department_id": "dept_003",
+      "manager_id": "emp_016",
+      "joined_date": "2021-01-18",
+      "bio": "Quốc An xây dựng pipeline ETL, data lake và kiểm soát chất lượng dữ liệu cho báo cáo lẫn machine learning. Anh mạnh về Spark, Airflow và tối ưu luồng dữ liệu incremental."
+    },
+    {
+      "id": "emp_018",
+      "name": "La Minh Tâm",
+      "role": "ML Engineer",
+      "level": "senior",
+      "department_id": "dept_003",
+      "manager_id": "emp_016",
+      "joined_date": "2021-11-29",
+      "bio": "Minh Tâm triển khai mô hình học máy thành dịch vụ production, quan tâm đến serving latency và reproducibility. Anh thường phối hợp chặt với DevOps để đóng gói mô hình trên Kubernetes."
+    },
+    {
+      "id": "emp_019",
+      "name": "Châu Bích Ngân",
+      "role": "BI Analyst",
+      "level": "mid",
+      "department_id": "dept_003",
+      "manager_id": "emp_015",
+      "joined_date": "2022-06-06",
+      "bio": "Bích Ngân xây dashboard theo dõi hiệu quả sản phẩm, doanh thu và chất lượng vận hành. Cô giỏi khai thác SQL, mô hình hóa số liệu và kể chuyện bằng dữ liệu cho lãnh đạo."
+    },
+    {
+      "id": "emp_020",
+      "name": "Phùng Gia Hân",
+      "role": "Data Analyst",
+      "level": "mid",
+      "department_id": "dept_003",
+      "manager_id": "emp_016",
+      "joined_date": "2023-05-15",
+      "bio": "Gia Hân hỗ trợ phân tích experiment, cohort và insight sử dụng tính năng mới. Cô thường làm việc với Product để chuẩn hóa event tracking trước khi triển khai."
+    },
+    {
+      "id": "emp_021",
+      "name": "Võ Thanh Sơn",
+      "role": "Head of DevOps",
+      "level": "manager",
+      "department_id": "dept_004",
+      "manager_id": "emp_001",
+      "joined_date": "2019-02-11",
+      "bio": "Thanh Sơn dẫn dắt hạ tầng cloud, bảo mật nền tảng và chiến lược CI/CD cho toàn công ty. Anh có nền tảng mạnh về Kubernetes, observability và incident response."
+    },
+    {
+      "id": "emp_022",
+      "name": "Khưu Anh Thư",
+      "role": "SRE Lead",
+      "level": "lead",
+      "department_id": "dept_004",
+      "manager_id": "emp_021",
+      "joined_date": "2020-12-07",
+      "bio": "Anh Thư phụ trách độ tin cậy hệ thống, tự động hóa vận hành và tối ưu SLO. Cô thường là người điều phối chính trong các incident có mức ảnh hưởng cao."
+    },
+    {
+      "id": "emp_023",
+      "name": "Lâm Quốc Việt",
+      "role": "Platform Engineer",
+      "level": "senior",
+      "department_id": "dept_004",
+      "manager_id": "emp_022",
+      "joined_date": "2021-03-08",
+      "bio": "Quốc Việt xây nền tảng nội bộ cho developer, từ GitOps đến template service triển khai trên cluster. Anh tập trung giảm friction khi đội ngũ engineering ship sản phẩm."
+    },
+    {
+      "id": "emp_024",
+      "name": "Tôn Nữ Quỳnh Anh",
+      "role": "Cloud Engineer",
+      "level": "senior",
+      "department_id": "dept_004",
+      "manager_id": "emp_022",
+      "joined_date": "2021-09-13",
+      "bio": "Quỳnh Anh vận hành AWS, mạng nội bộ và chiến lược backup cho các hệ thống quan trọng. Cô có kinh nghiệm tối ưu chi phí cloud và xử lý failover đa vùng."
+    },
+    {
+      "id": "emp_025",
+      "name": "Trương Công Định",
+      "role": "Security Engineer",
+      "level": "mid",
+      "department_id": "dept_004",
+      "manager_id": "emp_021",
+      "joined_date": "2022-07-18",
+      "bio": "Công Định tập trung vào hardening hạ tầng, secret management và rà soát lỗ hổng bảo mật. Anh thường phối hợp với QA và Engineering ở các đợt release lớn."
+    },
+    {
+      "id": "emp_026",
+      "name": "Đinh Hoài Nam",
+      "role": "DevOps Engineer",
+      "level": "mid",
+      "department_id": "dept_004",
+      "manager_id": "emp_022",
+      "joined_date": "2023-04-03",
+      "bio": "Hoài Nam hỗ trợ pipeline build, container hóa ứng dụng và cấu hình môi trường staging. Anh quen với Terraform, Helm và các tác vụ tự động hóa lặp lại."
+    },
+    {
+      "id": "emp_027",
+      "name": "Mạc Thiên An",
+      "role": "Design Manager",
+      "level": "manager",
+      "department_id": "dept_005",
+      "manager_id": "emp_001",
+      "joined_date": "2020-01-13",
+      "bio": "Thiên An dẫn dắt chiến lược trải nghiệm người dùng và hệ thống thiết kế cho các sản phẩm chủ lực. Anh có kinh nghiệm xây team design trong môi trường product-led growth."
+    },
+    {
+      "id": "emp_028",
+      "name": "Âu Hà My",
+      "role": "Senior UX Designer",
+      "level": "senior",
+      "department_id": "dept_005",
+      "manager_id": "emp_027",
+      "joined_date": "2021-04-19",
+      "bio": "Hà My chuyên thiết kế luồng người dùng phức tạp cho dashboard B2B và ứng dụng nội bộ. Cô thường làm prototype sớm để giảm rủi ro trước khi vào sprint phát triển."
+    },
+    {
+      "id": "emp_029",
+      "name": "Tống Phúc Hòa",
+      "role": "UI Designer",
+      "level": "mid",
+      "department_id": "dept_005",
+      "manager_id": "emp_027",
+      "joined_date": "2022-01-24",
+      "bio": "Phúc Hòa tập trung vào hệ thống giao diện, typography và các pattern tương tác nhất quán. Anh phối hợp sát với frontend để bảo đảm fidelity khi triển khai."
+    },
+    {
+      "id": "emp_030",
+      "name": "Lưu Diễm Quỳnh",
+      "role": "Product Designer",
+      "level": "senior",
+      "department_id": "dept_005",
+      "manager_id": "emp_027",
+      "joined_date": "2021-08-30",
+      "bio": "Diễm Quỳnh làm việc xuyên suốt discovery đến delivery cho nhiều sản phẩm có KPI chuyển đổi rõ ràng. Cô giỏi cân bằng giữa usability, tốc độ và mục tiêu tăng trưởng."
+    },
+    {
+      "id": "emp_031",
+      "name": "Cù Gia Linh",
+      "role": "UX Researcher",
+      "level": "mid",
+      "department_id": "dept_005",
+      "manager_id": "emp_027",
+      "joined_date": "2023-02-06",
+      "bio": "Gia Linh thực hiện phỏng vấn người dùng, usability test và tổng hợp insight cho team Product. Cô giúp các quyết định thiết kế bám sát hành vi thực tế thay vì cảm tính."
+    },
+    {
+      "id": "emp_032",
+      "name": "Sầm Đức Tài",
+      "role": "Brand Designer",
+      "level": "mid",
+      "department_id": "dept_005",
+      "manager_id": "emp_027",
+      "joined_date": "2022-11-14",
+      "bio": "Đức Tài phụ trách các asset thương hiệu, visual guideline và chiến dịch truyền thông nội bộ. Anh hỗ trợ bảo đảm hình ảnh sản phẩm và công ty đồng bộ trên nhiều kênh."
+    },
+    {
+      "id": "emp_033",
+      "name": "Nguyễn Thị Quỳnh",
+      "role": "QA Manager",
+      "level": "manager",
+      "department_id": "dept_006",
+      "manager_id": "emp_001",
+      "joined_date": "2020-03-16",
+      "bio": "Quỳnh điều hành chiến lược kiểm thử thủ công và tự động cho các sản phẩm chính của TechViet Solutions. Cô mạnh về quản lý rủi ro release, xây quy trình triage bug và phối hợp nhiều nhóm."
+    },
+    {
+      "id": "emp_034",
+      "name": "Nguyễn Văn Minh",
+      "role": "QA Analyst",
+      "level": "mid",
+      "department_id": "dept_006",
+      "manager_id": "emp_033",
+      "joined_date": "2022-10-10",
+      "bio": "Minh tập trung vào kiểm thử nghiệp vụ, regression cho các luồng thanh toán và CRM. Anh thường viết test case chi tiết và theo dõi lỗi xuyên suốt vòng đời sửa lỗi."
+    },
+    {
+      "id": "emp_035",
+      "name": "Hà Công Thành",
+      "role": "Senior QA Engineer",
+      "level": "senior",
+      "department_id": "dept_006",
+      "manager_id": "emp_033",
+      "joined_date": "2021-06-21",
+      "bio": "Công Thành có kinh nghiệm lớn về automation framework, API testing và kiểm thử tích hợp. Anh thường hỗ trợ thiết kế chiến lược test cho các dự án có yêu cầu độ chính xác cao."
+    },
+    {
+      "id": "emp_036",
+      "name": "Vi Khánh Ngọc",
+      "role": "Automation QA Engineer",
+      "level": "senior",
+      "department_id": "dept_006",
+      "manager_id": "emp_033",
+      "joined_date": "2021-12-01",
+      "bio": "Khánh Ngọc xây dựng bộ regression tự động với Cypress và Playwright cho web app nội bộ. Cô tập trung giảm thời gian kiểm thử lặp lại và tăng độ tin cậy trước mỗi đợt release."
+    },
+    {
+      "id": "emp_037",
+      "name": "Quách Minh Châu",
+      "role": "Performance Tester",
+      "level": "mid",
+      "department_id": "dept_006",
+      "manager_id": "emp_035",
+      "joined_date": "2023-06-12",
+      "bio": "Minh Châu phụ trách kiểm thử tải, phân tích bottleneck và so sánh baseline hiệu năng sau mỗi thay đổi lớn. Cô thường làm việc cùng DevOps để đọc metric hệ thống dưới tải."
+    },
+    {
+      "id": "emp_038",
+      "name": "Nghiêm Tuấn Dũng",
+      "role": "Test Lead",
+      "level": "lead",
+      "department_id": "dept_006",
+      "manager_id": "emp_033",
+      "joined_date": "2020-10-05",
+      "bio": "Tuấn Dũng điều phối test plan liên dự án và hỗ trợ review chiến lược chất lượng của các team product. Anh có thế mạnh quản lý defect, ưu tiên kiểm thử và truyền thông rủi ro với stakeholder."
+    },
+    {
+      "id": "emp_039",
+      "name": "Vương Thanh Hà",
+      "role": "HR Manager",
+      "level": "manager",
+      "department_id": "dept_007",
+      "manager_id": "emp_001",
+      "joined_date": "2019-09-09",
+      "bio": "Thanh Hà phụ trách tuyển dụng, phát triển tổ chức và chính sách nhân sự xuyên suốt công ty. Cô làm việc chặt với các trưởng bộ phận để mở rộng đội ngũ mà vẫn giữ chất lượng tuyển chọn."
+    },
+    {
+      "id": "emp_040",
+      "name": "Thái Bảo Yến",
+      "role": "Talent Acquisition Specialist",
+      "level": "senior",
+      "department_id": "dept_007",
+      "manager_id": "emp_039",
+      "joined_date": "2021-03-29",
+      "bio": "Bảo Yến chuyên tuyển kỹ sư và quản lý pipeline ứng viên cho các vị trí khó tuyển. Cô có kinh nghiệm xây employer branding và tối ưu tỷ lệ nhận offer."
+    },
+    {
+      "id": "emp_041",
+      "name": "Cao Nhật Minh",
+      "role": "HR Business Partner",
+      "level": "senior",
+      "department_id": "dept_007",
+      "manager_id": "emp_039",
+      "joined_date": "2020-11-23",
+      "bio": "Nhật Minh hỗ trợ trưởng bộ phận trong đánh giá năng lực, kế hoạch nhân sự và xử lý vấn đề tổ chức. Anh kết nối góc nhìn vận hành con người với nhu cầu tăng trưởng của từng phòng ban."
+    },
+    {
+      "id": "emp_042",
+      "name": "Văn Phương Nhi",
+      "role": "Recruiter",
+      "level": "mid",
+      "department_id": "dept_007",
+      "manager_id": "emp_040",
+      "joined_date": "2023-02-27",
+      "bio": "Phương Nhi xử lý sourcing, screening và điều phối lịch phỏng vấn cho các vị trí entry đến mid-level. Cô chú ý nhiều đến trải nghiệm ứng viên và tốc độ phản hồi."
+    },
+    {
+      "id": "emp_043",
+      "name": "Kiều Anh Duy",
+      "role": "People Operations Specialist",
+      "level": "mid",
+      "department_id": "dept_007",
+      "manager_id": "emp_039",
+      "joined_date": "2022-05-09",
+      "bio": "Anh Duy phụ trách onboarding, hồ sơ nội bộ và cải tiến các quy trình nhân sự lặp lại. Anh mạnh ở chuẩn hóa tài liệu và phối hợp với finance cho quy trình payroll."
+    },
+    {
+      "id": "emp_044",
+      "name": "Dương Gia Hưng",
+      "role": "Learning & Development Specialist",
+      "level": "mid",
+      "department_id": "dept_007",
+      "manager_id": "emp_041",
+      "joined_date": "2022-12-05",
+      "bio": "Gia Hưng thiết kế chương trình đào tạo nội bộ và đo hiệu quả phát triển năng lực theo từng nhóm vai trò. Anh thích làm việc với dữ liệu để đánh giá chất lượng học tập thay vì chỉ đo số giờ tham gia."
+    },
+    {
+      "id": "emp_045",
+      "name": "Lê Mỹ Duyên",
+      "role": "Head of Finance",
+      "level": "manager",
+      "department_id": "dept_008",
+      "manager_id": "emp_001",
+      "joined_date": "2019-05-20",
+      "bio": "Mỹ Duyên chịu trách nhiệm ngân sách, kiểm soát chi phí và kế hoạch tài chính dài hạn của công ty. Cô thường phối hợp với Product và HR để cân đối đầu tư tăng trưởng và hiệu quả vận hành."
+    },
+    {
+      "id": "emp_046",
+      "name": "Từ Hoàng Phúc",
+      "role": "Senior Accountant",
+      "level": "senior",
+      "department_id": "dept_008",
+      "manager_id": "emp_045",
+      "joined_date": "2021-01-04",
+      "bio": "Hoàng Phúc phụ trách hạch toán, đối soát và kiểm soát quy trình thanh toán nhà cung cấp. Anh rất cẩn trọng với tính chính xác dữ liệu và luồng phê duyệt nhiều bước."
+    },
+    {
+      "id": "emp_047",
+      "name": "Triệu Minh Tân",
+      "role": "Financial Analyst",
+      "level": "senior",
+      "department_id": "dept_008",
+      "manager_id": "emp_045",
+      "joined_date": "2021-07-05",
+      "bio": "Minh Tân xây dựng mô hình dự báo doanh thu, chi phí hạ tầng và hiệu quả đầu tư sản phẩm. Anh thường chuyển số liệu tài chính thành insight có thể hành động cho lãnh đạo."
+    },
+    {
+      "id": "emp_048",
+      "name": "Tạ Thu Ngân",
+      "role": "Payroll Specialist",
+      "level": "mid",
+      "department_id": "dept_008",
+      "manager_id": "emp_045",
+      "joined_date": "2022-04-18",
+      "bio": "Thu Ngân xử lý bảng lương, phụ cấp và đối soát dữ liệu nhân sự với finance. Cô phối hợp thường xuyên với HR để tránh sai lệch dữ liệu trước kỳ trả lương."
+    },
+    {
+      "id": "emp_049",
+      "name": "Doãn Hải Yến",
+      "role": "Procurement Specialist",
+      "level": "mid",
+      "department_id": "dept_008",
+      "manager_id": "emp_045",
+      "joined_date": "2022-09-26",
+      "bio": "Hải Yến quản lý mua sắm thiết bị, hợp đồng dịch vụ và tối ưu giá với nhà cung cấp. Cô làm việc nhiều với DevOps khi cần mở rộng hạ tầng hoặc gia hạn license."
+    },
+    {
+      "id": "emp_050",
+      "name": "Lương Đức Bình",
+      "role": "Finance Operations Associate",
+      "level": "junior",
+      "department_id": "dept_008",
+      "manager_id": "emp_046",
+      "joined_date": "2024-01-15",
+      "bio": "Đức Bình hỗ trợ các tác vụ đối soát cơ bản, chuẩn bị chứng từ và cập nhật dashboard vận hành tài chính. Anh đang phát triển kỹ năng phân tích dữ liệu và tự động hóa báo cáo bằng SQL."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_001",
+      "name": "Java",
+      "category": "backend"
+    },
+    {
+      "id": "skill_002",
+      "name": "Spring Boot",
+      "category": "backend"
+    },
+    {
+      "id": "skill_003",
+      "name": "Go",
+      "category": "backend"
+    },
+    {
+      "id": "skill_004",
+      "name": "Node.js",
+      "category": "backend"
+    },
+    {
+      "id": "skill_005",
+      "name": "Python",
+      "category": "data"
+    },
+    {
+      "id": "skill_006",
+      "name": "PostgreSQL",
+      "category": "backend"
+    },
+    {
+      "id": "skill_007",
+      "name": "Redis",
+      "category": "backend"
+    },
+    {
+      "id": "skill_008",
+      "name": "Kafka",
+      "category": "backend"
+    },
+    {
+      "id": "skill_009",
+      "name": "React",
+      "category": "frontend"
+    },
+    {
+      "id": "skill_010",
+      "name": "TypeScript",
+      "category": "frontend"
+    },
+    {
+      "id": "skill_011",
+      "name": "React Native",
+      "category": "frontend"
+    },
+    {
+      "id": "skill_012",
+      "name": "Next.js",
+      "category": "frontend"
+    },
+    {
+      "id": "skill_013",
+      "name": "Figma",
+      "category": "design"
+    },
+    {
+      "id": "skill_014",
+      "name": "Design Systems",
+      "category": "design"
+    },
+    {
+      "id": "skill_015",
+      "name": "User Research",
+      "category": "design"
+    },
+    {
+      "id": "skill_016",
+      "name": "A/B Testing",
+      "category": "management"
+    },
+    {
+      "id": "skill_017",
+      "name": "Roadmapping",
+      "category": "management"
+    },
+    {
+      "id": "skill_018",
+      "name": "Agile Delivery",
+      "category": "management"
+    },
+    {
+      "id": "skill_019",
+      "name": "SQL",
+      "category": "data"
+    },
+    {
+      "id": "skill_020",
+      "name": "dbt",
+      "category": "data"
+    },
+    {
+      "id": "skill_021",
+      "name": "Airflow",
+      "category": "data"
+    },
+    {
+      "id": "skill_022",
+      "name": "Spark",
+      "category": "data"
+    },
+    {
+      "id": "skill_023",
+      "name": "Machine Learning",
+      "category": "data"
+    },
+    {
+      "id": "skill_024",
+      "name": "Kubernetes",
+      "category": "devops"
+    },
+    {
+      "id": "skill_025",
+      "name": "Docker",
+      "category": "devops"
+    },
+    {
+      "id": "skill_026",
+      "name": "Terraform",
+      "category": "devops"
+    },
+    {
+      "id": "skill_027",
+      "name": "AWS",
+      "category": "devops"
+    },
+    {
+      "id": "skill_028",
+      "name": "CI/CD",
+      "category": "devops"
+    },
+    {
+      "id": "skill_029",
+      "name": "Cypress",
+      "category": "frontend"
+    },
+    {
+      "id": "skill_030",
+      "name": "JMeter",
+      "category": "devops"
+    }
+  ],
+  "employee_skills": [
+    {
+      "employee_id": "emp_001",
+      "skill_id": "skill_001",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_001",
+      "skill_id": "skill_002",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_001",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_001",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_001",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_002",
+      "skill_id": "skill_001",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_002",
+      "skill_id": "skill_002",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_002",
+      "skill_id": "skill_006",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_002",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_002",
+      "skill_id": "skill_028",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_003",
+      "skill_id": "skill_001",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_003",
+      "skill_id": "skill_002",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_003",
+      "skill_id": "skill_006",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_003",
+      "skill_id": "skill_008",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_004",
+      "skill_id": "skill_003",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_004",
+      "skill_id": "skill_006",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_004",
+      "skill_id": "skill_007",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_004",
+      "skill_id": "skill_025",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_005",
+      "skill_id": "skill_009",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_005",
+      "skill_id": "skill_010",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_005",
+      "skill_id": "skill_012",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_005",
+      "skill_id": "skill_014",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_006",
+      "skill_id": "skill_004",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_006",
+      "skill_id": "skill_009",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_006",
+      "skill_id": "skill_010",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_006",
+      "skill_id": "skill_025",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_007",
+      "skill_id": "skill_011",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_007",
+      "skill_id": "skill_010",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_007",
+      "skill_id": "skill_009",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_007",
+      "skill_id": "skill_029",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_008",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_008",
+      "skill_id": "skill_008",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_008",
+      "skill_id": "skill_006",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_008",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_009",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_009",
+      "skill_id": "skill_016",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_009",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_009",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_010",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_010",
+      "skill_id": "skill_016",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_010",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_010",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_011",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_011",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_011",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_011",
+      "skill_id": "skill_015",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_012",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_012",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_012",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_012",
+      "skill_id": "skill_020",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_013",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_013",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_013",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_013",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_014",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_014",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_014",
+      "skill_id": "skill_015",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_014",
+      "skill_id": "skill_020",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_015",
+      "skill_id": "skill_005",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_015",
+      "skill_id": "skill_021",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_015",
+      "skill_id": "skill_023",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_015",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_016",
+      "skill_id": "skill_005",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_016",
+      "skill_id": "skill_023",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_016",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_016",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_017",
+      "skill_id": "skill_005",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_017",
+      "skill_id": "skill_021",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_017",
+      "skill_id": "skill_022",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_017",
+      "skill_id": "skill_020",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_018",
+      "skill_id": "skill_005",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_018",
+      "skill_id": "skill_023",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_018",
+      "skill_id": "skill_024",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_018",
+      "skill_id": "skill_025",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_019",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_019",
+      "skill_id": "skill_020",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_019",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_019",
+      "skill_id": "skill_015",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_020",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_020",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_020",
+      "skill_id": "skill_021",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_020",
+      "skill_id": "skill_005",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_021",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_021",
+      "skill_id": "skill_026",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_021",
+      "skill_id": "skill_027",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_021",
+      "skill_id": "skill_028",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_022",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_022",
+      "skill_id": "skill_027",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_022",
+      "skill_id": "skill_028",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_022",
+      "skill_id": "skill_030",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_023",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_023",
+      "skill_id": "skill_026",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_023",
+      "skill_id": "skill_025",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_023",
+      "skill_id": "skill_028",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_024",
+      "skill_id": "skill_027",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_024",
+      "skill_id": "skill_026",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_024",
+      "skill_id": "skill_024",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_024",
+      "skill_id": "skill_025",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_025",
+      "skill_id": "skill_027",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_025",
+      "skill_id": "skill_026",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_025",
+      "skill_id": "skill_028",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_025",
+      "skill_id": "skill_024",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_026",
+      "skill_id": "skill_025",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_026",
+      "skill_id": "skill_026",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_026",
+      "skill_id": "skill_028",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_026",
+      "skill_id": "skill_024",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_027",
+      "skill_id": "skill_013",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_027",
+      "skill_id": "skill_014",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_027",
+      "skill_id": "skill_015",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_027",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_028",
+      "skill_id": "skill_013",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_028",
+      "skill_id": "skill_015",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_028",
+      "skill_id": "skill_014",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_028",
+      "skill_id": "skill_016",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_029",
+      "skill_id": "skill_013",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_029",
+      "skill_id": "skill_014",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_029",
+      "skill_id": "skill_009",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_029",
+      "skill_id": "skill_010",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_030",
+      "skill_id": "skill_013",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_030",
+      "skill_id": "skill_014",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_030",
+      "skill_id": "skill_015",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_030",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_031",
+      "skill_id": "skill_015",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_031",
+      "skill_id": "skill_013",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_031",
+      "skill_id": "skill_019",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_031",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_032",
+      "skill_id": "skill_013",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_032",
+      "skill_id": "skill_014",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_032",
+      "skill_id": "skill_012",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_032",
+      "skill_id": "skill_015",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_033",
+      "skill_id": "skill_029",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_033",
+      "skill_id": "skill_030",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_033",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_033",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_034",
+      "skill_id": "skill_029",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_034",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_034",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_034",
+      "skill_id": "skill_030",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_035",
+      "skill_id": "skill_029",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_035",
+      "skill_id": "skill_030",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_035",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_035",
+      "skill_id": "skill_028",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_036",
+      "skill_id": "skill_029",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_036",
+      "skill_id": "skill_010",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_036",
+      "skill_id": "skill_028",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_036",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_037",
+      "skill_id": "skill_030",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_037",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_037",
+      "skill_id": "skill_024",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_037",
+      "skill_id": "skill_028",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_038",
+      "skill_id": "skill_029",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_038",
+      "skill_id": "skill_030",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_038",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_038",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_039",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_039",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_039",
+      "skill_id": "skill_015",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_039",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_040",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_040",
+      "skill_id": "skill_015",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_040",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_040",
+      "skill_id": "skill_016",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_041",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_041",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_041",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_041",
+      "skill_id": "skill_016",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_042",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_042",
+      "skill_id": "skill_015",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_042",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_042",
+      "skill_id": "skill_019",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_043",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_043",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_043",
+      "skill_id": "skill_017",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_043",
+      "skill_id": "skill_016",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_044",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_044",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_044",
+      "skill_id": "skill_015",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_044",
+      "skill_id": "skill_019",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_045",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_045",
+      "skill_id": "skill_017",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_045",
+      "skill_id": "skill_016",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_045",
+      "skill_id": "skill_018",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_046",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_046",
+      "skill_id": "skill_006",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_046",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_046",
+      "skill_id": "skill_020",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_047",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_047",
+      "skill_id": "skill_016",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_047",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_047",
+      "skill_id": "skill_020",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_048",
+      "skill_id": "skill_019",
+      "level": "expert"
+    },
+    {
+      "employee_id": "emp_048",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_048",
+      "skill_id": "skill_017",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_048",
+      "skill_id": "skill_006",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_049",
+      "skill_id": "skill_017",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_049",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_049",
+      "skill_id": "skill_027",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_049",
+      "skill_id": "skill_018",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_050",
+      "skill_id": "skill_019",
+      "level": "intermediate"
+    },
+    {
+      "employee_id": "emp_050",
+      "skill_id": "skill_020",
+      "level": "beginner"
+    },
+    {
+      "employee_id": "emp_050",
+      "skill_id": "skill_018",
+      "level": "beginner"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj_001",
+      "name": "Orion Commerce Platform",
+      "status": "active",
+      "description": "Nền tảng thương mại điện tử B2B mới phục vụ khách hàng doanh nghiệp với kiến trúc microservices. Dự án dùng Java, Spring Boot, React, PostgreSQL và Kafka để xử lý đơn hàng, tồn kho và sự kiện thanh toán. Mục tiêu là thay thế hệ thống monolith cũ và giảm thời gian onboard merchant. Team cũng triển khai observability trên Kubernetes để theo dõi latency theo từng service.",
+      "owner_id": "emp_010",
+      "department_id": "dept_001",
+      "start_date": "2025-08-04",
+      "end_date": null
+    },
+    {
+      "id": "proj_002",
+      "name": "LotusPay Reconciliation Engine",
+      "status": "active",
+      "description": "Hệ thống đối soát giao dịch tài chính giữa nhiều cổng thanh toán và hệ thống sổ cái nội bộ. Dự án kết hợp Python, dbt, PostgreSQL, Airflow và AWS S3 để gom dữ liệu, làm sạch và sinh báo cáo đối soát theo ngày. Mục tiêu là giảm sai lệch thủ công cho team finance và rút ngắn thời gian chốt số cuối tháng. Phần xử lý bất thường được bổ sung rule engine để phát hiện lệch dữ liệu theo thời gian thực.",
+      "owner_id": "emp_045",
+      "department_id": "dept_003",
+      "start_date": "2025-09-15",
+      "end_date": null
+    },
+    {
+      "id": "proj_003",
+      "name": "Sông Hồng Data Lake",
+      "status": "active",
+      "description": "Data lake tập trung cho toàn công ty nhằm hợp nhất dữ liệu sản phẩm, tài chính và vận hành vào một chuẩn phân tích chung. Dự án sử dụng Spark, Airflow, dbt, Python và AWS để ingest dữ liệu từ PostgreSQL, ứng dụng web và các file đối soát. Mục tiêu là làm nền cho dashboard lãnh đạo và các bài toán machine learning sau này. Hệ thống được thiết kế incremental để tránh reprocess toàn bộ dữ liệu mỗi ngày.",
+      "owner_id": "emp_015",
+      "department_id": "dept_003",
+      "start_date": "2025-06-10",
+      "end_date": null
+    },
+    {
+      "id": "proj_004",
+      "name": "K8s Cost Guard",
+      "status": "active",
+      "description": "Nền tảng theo dõi và cảnh báo chi phí hạ tầng Kubernetes theo namespace, service và môi trường triển khai. Dự án dùng Go, Prometheus, PostgreSQL, React và Kubernetes để thu metric sử dụng tài nguyên và hiển thị dashboard chi tiết. Mục tiêu là giúp DevOps và Finance nhìn thấy dịch vụ nào đang tiêu tốn ngân sách bất thường. Team cũng xây policy tự động nhắc nhở khi workload vượt ngưỡng dự toán.",
+      "owner_id": "emp_021",
+      "department_id": "dept_004",
+      "start_date": "2025-11-03",
+      "end_date": null
+    },
+    {
+      "id": "proj_005",
+      "name": "Nova HR Portal",
+      "status": "planning",
+      "description": "Cổng nhân sự mới phục vụ onboarding, đánh giá năng lực và quản lý tài liệu nội bộ trong một giao diện thống nhất. Dự án dự kiến dùng Next.js, Node.js, PostgreSQL và Figma để triển khai nhanh trong giai đoạn đầu. Mục tiêu là giảm thao tác rời rạc giữa email, bảng tính và các biểu mẫu thủ công. Product và HR đang hoàn thiện scope cho phiên bản MVP trước khi vào sprint xây dựng.",
+      "owner_id": "emp_039",
+      "department_id": "dept_002",
+      "start_date": "2026-05-05",
+      "end_date": null
+    },
+    {
+      "id": "proj_006",
+      "name": "Insight360 Analytics",
+      "status": "active",
+      "description": "Bộ dashboard phân tích sức khỏe sản phẩm và hiệu quả tăng trưởng cho các nhóm Product. Dự án dùng React, TypeScript, Python, dbt và PostgreSQL để trực quan hóa funnel, retention và hiệu quả experiment. Mục tiêu là cung cấp một nguồn số liệu tin cậy để ra quyết định roadmap và đánh giá tác động tính năng. Hệ thống còn tích hợp cohort analysis để phân nhóm hành vi người dùng theo thời gian.",
+      "owner_id": "emp_016",
+      "department_id": "dept_002",
+      "start_date": "2025-07-21",
+      "end_date": null
+    },
+    {
+      "id": "proj_007",
+      "name": "Beacon Mobile App",
+      "status": "completed",
+      "description": "Ứng dụng mobile dành cho đội sales hiện trường để theo dõi lead, lịch hẹn và cập nhật trạng thái khách hàng ngay cả khi mất mạng. Dự án dùng React Native, TypeScript, Node.js và PostgreSQL, đồng thời có cơ chế đồng bộ offline-first. Mục tiêu là thay thế quy trình ghi chú rời rạc trước đây và tăng tốc độ cập nhật CRM tại hiện trường. Sau rollout, team ghi nhận tỷ lệ cập nhật lead trong ngày tăng rõ rệt.",
+      "owner_id": "emp_011",
+      "department_id": "dept_001",
+      "start_date": "2024-11-11",
+      "end_date": "2025-06-30"
+    },
+    {
+      "id": "proj_008",
+      "name": "Atlas Design System",
+      "status": "completed",
+      "description": "Hệ thống thiết kế chung cho các sản phẩm web và mobile nhằm chuẩn hóa component, guideline và token giao diện. Dự án sử dụng Figma, React, TypeScript và Storybook để xây thư viện thiết kế và đồng bộ với engineering. Mục tiêu là giảm thời gian thiết kế lại UI và tăng tính nhất quán khi nhiều team cùng phát triển. Bộ component đã được áp dụng cho hai sản phẩm nội bộ sau khi hoàn tất.",
+      "owner_id": "emp_027",
+      "department_id": "dept_005",
+      "start_date": "2024-08-05",
+      "end_date": "2025-03-14"
+    },
+    {
+      "id": "proj_009",
+      "name": "Mercury QA Automation",
+      "status": "active",
+      "description": "Chương trình nâng cấp automation test cho các luồng thanh toán, CRM và backoffice có tần suất thay đổi cao. Dự án dùng Cypress, Playwright, JMeter và CI/CD pipeline để chạy regression theo commit và smoke test theo lịch. Mục tiêu là giảm thời gian kiểm thử tay trước release và phát hiện lỗi sớm hơn trong chuỗi triển khai. Kết quả test được đẩy về dashboard để Product và Engineering cùng theo dõi.",
+      "owner_id": "emp_033",
+      "department_id": "dept_006",
+      "start_date": "2025-10-06",
+      "end_date": null
+    },
+    {
+      "id": "proj_010",
+      "name": "CandidateFlow ATS",
+      "status": "planning",
+      "description": "Hệ thống quản lý pipeline tuyển dụng cho HR, từ sourcing đến offer, thay cho các bảng tính phân tán hiện tại. Dự án dự kiến dùng React, Node.js, PostgreSQL và AWS SES để quản lý trạng thái ứng viên và gửi email tự động. Mục tiêu là cải thiện trải nghiệm tuyển dụng và rút ngắn thời gian phản hồi ứng viên. Team đang xác định phạm vi tích hợp với lịch phỏng vấn và báo cáo tuyển dụng.",
+      "owner_id": "emp_041",
+      "department_id": "dept_007",
+      "start_date": "2026-06-01",
+      "end_date": null
+    },
+    {
+      "id": "proj_011",
+      "name": "Treasury Forecast Hub",
+      "status": "completed",
+      "description": "Công cụ dự báo dòng tiền và mô phỏng chi phí vận hành cho team Finance và ban lãnh đạo. Dự án dùng Python, SQL, React và PostgreSQL để gom dữ liệu chi phí, doanh thu và hiển thị các kịch bản tài chính khác nhau. Mục tiêu là rút ngắn thời gian lập forecast và chuẩn hóa cách các phòng ban nhìn vào cùng một bộ số liệu. Công cụ hiện đã thay thế phần lớn mô hình spreadsheet thủ công trước đây.",
+      "owner_id": "emp_047",
+      "department_id": "dept_008",
+      "start_date": "2024-10-14",
+      "end_date": "2025-05-23"
+    },
+    {
+      "id": "proj_012",
+      "name": "ChatCare Support Assistant",
+      "status": "active",
+      "description": "Trợ lý hỗ trợ nội bộ cho team chăm sóc khách hàng, dùng tìm kiếm ngữ nghĩa và gợi ý câu trả lời theo bối cảnh ticket. Dự án kết hợp Python, PostgreSQL, React, Redis và Kubernetes để phục vụ truy vấn nhanh và triển khai service theo nhu cầu. Mục tiêu là giảm thời gian tra cứu tài liệu và chuẩn hóa chất lượng phản hồi của agent. Nhóm Data đang thử thêm pipeline đánh giá retrieval để cải thiện độ chính xác.",
+      "owner_id": "emp_018",
+      "department_id": "dept_002",
+      "start_date": "2025-12-01",
+      "end_date": null
+    },
+    {
+      "id": "proj_013",
+      "name": "Edge CDN Migration",
+      "status": "completed",
+      "description": "Dự án chuyển lớp phân phối nội dung và static asset sang hạ tầng CDN mới để giảm độ trễ cho người dùng ở nhiều khu vực. Team sử dụng Terraform, AWS, Docker, CI/CD và cơ chế canary rollout để hạn chế rủi ro khi chuyển đổi. Mục tiêu là giảm chi phí băng thông đồng thời cải thiện tốc độ tải tài nguyên frontend. Sau khi hoàn tất, team ghi nhận thời gian tải trang đầu tiên giảm đáng kể.",
+      "owner_id": "emp_022",
+      "department_id": "dept_004",
+      "start_date": "2025-01-06",
+      "end_date": "2025-08-29"
+    },
+    {
+      "id": "proj_014",
+      "name": "Pulse Experimentation Platform",
+      "status": "planning",
+      "description": "Nền tảng chạy A/B test tập trung cho các nhóm Product và Growth, giúp quản lý biến thể, phân phối người dùng và đo kết quả chuẩn hơn. Dự án dự kiến dùng Go, React, Kafka, PostgreSQL và Redis để vừa phân phối traffic vừa thu sự kiện đo lường. Mục tiêu là để các team chạy experiment mà không phải tự triển khai logic phân nhóm ở từng sản phẩm. Hiện Product đang rà soát use case ưu tiên trước khi đầu tư kỹ thuật sâu.",
+      "owner_id": "emp_009",
+      "department_id": "dept_002",
+      "start_date": "2026-04-28",
+      "end_date": null
+    },
+    {
+      "id": "proj_015",
+      "name": "Legacy CRM Sunset",
+      "status": "paused",
+      "description": "Chương trình loại bỏ CRM cũ đang gây nhiều chi phí bảo trì và dữ liệu không nhất quán giữa các bộ phận. Dự án ban đầu dùng Node.js, PostgreSQL, React và các migration script để chuyển dữ liệu sang hệ thống mới theo từng cụm khách hàng. Mục tiêu là giảm technical debt và tránh phải duy trì song song hai nền tảng quá lâu. Tuy nhiên dự án đang tạm dừng vì phụ thuộc nghiệp vụ từ nhiều phòng ban chưa được chốt.",
+      "owner_id": "emp_010",
+      "department_id": "dept_001",
+      "start_date": "2025-04-07",
+      "end_date": null
+    }
+  ],
+  "project_members": [
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_010",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_003",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_004",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_005",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_030",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_035",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_001",
+      "employee_id": "emp_023",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_002",
+      "employee_id": "emp_045",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_002",
+      "employee_id": "emp_017",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_002",
+      "employee_id": "emp_019",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_002",
+      "employee_id": "emp_046",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_002",
+      "employee_id": "emp_033",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_015",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_017",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_018",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_020",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_024",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_003",
+      "employee_id": "emp_019",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_021",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_022",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_023",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_024",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_047",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_004",
+      "employee_id": "emp_037",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_005",
+      "employee_id": "emp_039",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_005",
+      "employee_id": "emp_011",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_005",
+      "employee_id": "emp_028",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_005",
+      "employee_id": "emp_006",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_005",
+      "employee_id": "emp_043",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_016",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_014",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_019",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_020",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_005",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_006",
+      "employee_id": "emp_028",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_007",
+      "employee_id": "emp_011",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_007",
+      "employee_id": "emp_007",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_007",
+      "employee_id": "emp_006",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_007",
+      "employee_id": "emp_028",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_007",
+      "employee_id": "emp_034",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_027",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_028",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_029",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_030",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_005",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_008",
+      "employee_id": "emp_036",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_033",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_035",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_036",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_037",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_038",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_009",
+      "employee_id": "emp_026",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_010",
+      "employee_id": "emp_041",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_010",
+      "employee_id": "emp_040",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_010",
+      "employee_id": "emp_042",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_010",
+      "employee_id": "emp_006",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_010",
+      "employee_id": "emp_031",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_011",
+      "employee_id": "emp_047",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_011",
+      "employee_id": "emp_046",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_011",
+      "employee_id": "emp_019",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_011",
+      "employee_id": "emp_014",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_011",
+      "employee_id": "emp_029",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_018",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_020",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_012",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_006",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_025",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_030",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_012",
+      "employee_id": "emp_038",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_022",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_023",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_024",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_025",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_005",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_013",
+      "employee_id": "emp_037",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_009",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_010",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_014",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_016",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_030",
+      "role": "designer"
+    },
+    {
+      "project_id": "proj_014",
+      "employee_id": "emp_023",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_010",
+      "role": "lead"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_003",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_004",
+      "role": "developer"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_012",
+      "role": "reviewer"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_034",
+      "role": "qa"
+    },
+    {
+      "project_id": "proj_015",
+      "employee_id": "emp_028",
+      "role": "designer"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "inc_001",
+      "title": "Checkout API timeout spike during merchant flash sale",
+      "description": "Trong đợt flash sale lớn, service checkout của Orion Commerce Platform tăng latency đột ngột và nhiều request vượt quá ngưỡng 12 giây. Điều tra ban đầu cho thấy truy vấn PostgreSQL trên bảng order_reservations bị lock kéo dài khi inventory service phát nhiều sự kiện Kafka cùng lúc. Sự cố làm tỷ lệ thanh toán thất bại tăng mạnh ở merchant lớn và buộc team phải bật cơ chế degrade tạm thời cho một số bước xác nhận.",
+      "severity": "critical",
+      "status": "resolved",
+      "reporter_id": "emp_035",
+      "assigned_to": "emp_022",
+      "related_project_id": "proj_001",
+      "created_date": "2026-02-17"
+    },
+    {
+      "id": "inc_002",
+      "title": "Duplicate settlement rows in reconciliation summary",
+      "description": "LotusPay Reconciliation Engine sinh trùng dòng đối soát ở báo cáo cuối ngày cho một số cổng thanh toán có batch nộp muộn. Nguyên nhân nghi ngờ là job Airflow retry lại task ingest nhưng không đánh dấu idempotent key đúng chuẩn trước khi nạp vào PostgreSQL. Sai lệch này khiến team finance tạm dừng chốt số và cần rà soát lại toàn bộ tập giao dịch bị ảnh hưởng.",
+      "severity": "critical",
+      "status": "investigating",
+      "reporter_id": "emp_046",
+      "assigned_to": "emp_017",
+      "related_project_id": "proj_002",
+      "created_date": "2026-03-03"
+    },
+    {
+      "id": "inc_003",
+      "title": "Cluster autoscaling failed after policy rollout",
+      "description": "Sau khi áp dụng policy mới cho K8s Cost Guard, một nhóm node không tự scale lên dù CPU đã vượt ngưỡng cảnh báo trong nhiều phút. Phân tích ban đầu chỉ ra cấu hình Terraform và autoscaler annotation không đồng bộ giữa hai environment quan trọng. Hệ quả là một số dashboard chi phí cập nhật chậm và nhiều dịch vụ dùng chung cluster bị ảnh hưởng hiệu năng.",
+      "severity": "critical",
+      "status": "resolved",
+      "reporter_id": "emp_047",
+      "assigned_to": "emp_024",
+      "related_project_id": "proj_004",
+      "created_date": "2026-01-26"
+    },
+    {
+      "id": "inc_004",
+      "title": "Support assistant returned outdated policy snippets",
+      "description": "ChatCare Support Assistant trả về đoạn hướng dẫn cũ cho ticket liên quan hoàn tiền, khiến agent hỗ trợ có nguy cơ tư vấn sai quy trình. Điều tra cho thấy pipeline đồng bộ tài liệu mới bị kẹt và chỉ mục Redis chưa được làm mới sau lần deploy gần nhất. Vấn đề ảnh hưởng trực tiếp đến độ tin cậy của câu trả lời và làm tăng thời gian xử lý ticket phức tạp.",
+      "severity": "critical",
+      "status": "open",
+      "reporter_id": "emp_012",
+      "assigned_to": "emp_018",
+      "related_project_id": "proj_012",
+      "created_date": "2026-04-02"
+    },
+    {
+      "id": "inc_005",
+      "title": "Legacy CRM migration script corrupted account owner mapping",
+      "description": "Một script chuyển dữ liệu trong chương trình Legacy CRM Sunset đã ghi đè sai mapping account owner cho nhóm khách hàng cũ. Nguyên nhân ban đầu liên quan đến bảng tham chiếu vùng bán hàng dùng khóa tạm không còn đúng sau khi nghiệp vụ thay đổi. Sự cố làm dữ liệu staging mất độ tin cậy và khiến quyết định tiếp tục dự án bị tạm hoãn thêm.",
+      "severity": "critical",
+      "status": "investigating",
+      "reporter_id": "emp_010",
+      "assigned_to": "emp_003",
+      "related_project_id": "proj_015",
+      "created_date": "2026-01-12"
+    },
+    {
+      "id": "inc_006",
+      "title": "Late-arriving event broke daily data lake partition",
+      "description": "Sông Hồng Data Lake có một partition ngày bị thiếu dữ liệu khi luồng event từ CRM đến muộn hơn bình thường. Job Spark vẫn đánh dấu hoàn tất nhưng dbt model downstream không phát hiện được phần record bị trễ vì watermark cấu hình quá ngắn. Điều này khiến dashboard doanh thu buổi sáng hiển thị thấp hơn thực tế và gây nhầm lẫn cho lãnh đạo.",
+      "severity": "high",
+      "status": "resolved",
+      "reporter_id": "emp_019",
+      "assigned_to": "emp_017",
+      "related_project_id": "proj_003",
+      "created_date": "2026-03-12"
+    },
+    {
+      "id": "inc_007",
+      "title": "Regression suite blocked merge queue for four hours",
+      "description": "Pipeline của Mercury QA Automation treo hàng loạt job regression sau khi runner mới được cập nhật image trình duyệt. Log cho thấy dependency của Cypress xung đột với thư viện hệ thống trong container và khiến nhiều ca kiểm thử thất bại giả. Việc này làm merge queue bị chặn gần nửa ngày và lùi lịch release của hai team product.",
+      "severity": "high",
+      "status": "resolved",
+      "reporter_id": "emp_036",
+      "assigned_to": "emp_026",
+      "related_project_id": "proj_009",
+      "created_date": "2026-02-05"
+    },
+    {
+      "id": "inc_008",
+      "title": "Offline sync conflict created duplicate leads on mobile",
+      "description": "Beacon Mobile App ghi nhận một số lead bị nhân bản khi thiết bị trở lại trạng thái online sau nhiều giờ làm việc ngoại tuyến. Nguyên nhân nằm ở cơ chế merge theo timestamp giữa local store và API đồng bộ cũ chưa xử lý xung đột đúng cách. Dù dự án đã hoàn thành, vấn đề vẫn xuất hiện ở nhóm người dùng hiện trường dùng bản app cũ chưa nâng cấp.",
+      "severity": "high",
+      "status": "investigating",
+      "reporter_id": "emp_034",
+      "assigned_to": "emp_007",
+      "related_project_id": "proj_007",
+      "created_date": "2026-01-08"
+    },
+    {
+      "id": "inc_009",
+      "title": "CDN cache rule served stale JavaScript bundle",
+      "description": "Sau đợt chuyển sang hạ tầng mới trong Edge CDN Migration, một rule cache vẫn giữ bundle JavaScript cũ quá lâu ở một số region. Điều này khiến frontend tải asset không đồng bộ với API mới và gây lỗi khó tái hiện trên production. Team platform đang rà lại TTL, versioning và quy trình purge để tránh lặp lại.",
+      "severity": "high",
+      "status": "resolved",
+      "reporter_id": "emp_023",
+      "assigned_to": "emp_021",
+      "related_project_id": "proj_013",
+      "created_date": "2026-02-22"
+    },
+    {
+      "id": "inc_010",
+      "title": "Payroll export file missing allowance column",
+      "description": "Báo cáo xuất bảng lương tháng gần nhất bị thiếu cột phụ cấp khi gửi cho finance review nội bộ. Sự cố không gắn với một dự án cụ thể mà phát sinh từ luồng phối hợp dữ liệu giữa HR và Finance sau khi đổi template. Dù không gây mất dữ liệu gốc, việc thiếu cột khiến team phải dừng quy trình kiểm tra và sửa lại file thủ công.",
+      "severity": "high",
+      "status": "resolved",
+      "reporter_id": "emp_048",
+      "assigned_to": "emp_043",
+      "related_project_id": null,
+      "created_date": "2026-03-18"
+    },
+    {
+      "id": "inc_011",
+      "title": "Retention dashboard showed inconsistent cohort totals",
+      "description": "Insight360 Analytics hiển thị tổng người dùng ở một số cohort không khớp giữa hai trang dashboard quan trọng. Điều tra chỉ ra một nguồn event tracking bị thay đổi tên trường nhưng tài liệu mapping chưa cập nhật trong model dbt. Sai lệch này làm Product khó đánh giá chính xác tác động của chiến dịch onboarding mới.",
+      "severity": "high",
+      "status": "open",
+      "reporter_id": "emp_014",
+      "assigned_to": "emp_005",
+      "related_project_id": "proj_006",
+      "created_date": "2026-04-05"
+    },
+    {
+      "id": "inc_012",
+      "title": "Staging secret exposed in debug log during payment test",
+      "description": "Một khóa bí mật của môi trường staging bị in ra debug log trong quá trình kiểm thử luồng thanh toán của Orion Commerce Platform. Dữ liệu không xuất hiện ở production nhưng sự cố cho thấy service vẫn còn cấu hình logging chưa được làm sạch theo chuẩn bảo mật. Security team đang rà soát phạm vi ảnh hưởng và cập nhật policy masking bắt buộc.",
+      "severity": "high",
+      "status": "resolved",
+      "reporter_id": "emp_003",
+      "assigned_to": "emp_025",
+      "related_project_id": "proj_001",
+      "created_date": "2026-01-31"
+    },
+    {
+      "id": "inc_013",
+      "title": "Offer approval SLA breached for engineering candidates",
+      "description": "Quy trình phê duyệt offer cho một nhóm ứng viên engineering bị chậm hơn cam kết nội bộ hơn ba ngày làm việc. Nguyên nhân đến từ chuỗi phê duyệt chéo giữa HRBP, finance và quản lý tuyển dụng nhưng không có cảnh báo quá hạn. Sự cố khiến ít nhất một ứng viên nhận offer muộn và làm giảm trải nghiệm tuyển dụng.",
+      "severity": "medium",
+      "status": "investigating",
+      "reporter_id": "emp_040",
+      "assigned_to": "emp_041",
+      "related_project_id": null,
+      "created_date": "2026-03-27"
+    },
+    {
+      "id": "inc_014",
+      "title": "HR portal prototype used outdated competency matrix",
+      "description": "Bản prototype của Nova HR Portal đang tham chiếu bộ competency matrix cũ nên một số form đánh giá hiển thị sai tiêu chí. Vấn đề xuất phát từ việc tài liệu nguồn chưa được đồng bộ khi Product chốt scope ban đầu. Ảnh hưởng hiện ở mức giới hạn trong giai đoạn planning nhưng nếu không sửa sớm sẽ làm lệch requirement phát triển.",
+      "severity": "medium",
+      "status": "open",
+      "reporter_id": "emp_043",
+      "assigned_to": "emp_039",
+      "related_project_id": "proj_005",
+      "created_date": "2026-04-07"
+    },
+    {
+      "id": "inc_015",
+      "title": "CandidateFlow interview calendar mock missed timezone handling",
+      "description": "Bản thiết kế luồng lịch phỏng vấn của CandidateFlow ATS chưa xử lý rõ tình huống interviewer ở múi giờ khác. Vấn đề được phát hiện trong lúc review requirement và chưa gây lỗi hệ thống do dự án vẫn ở giai đoạn planning. Tuy vậy nếu không chỉnh sớm, team sẽ phải sửa lại data model và email template sau này.",
+      "severity": "medium",
+      "status": "open",
+      "reporter_id": "emp_042",
+      "assigned_to": "emp_041",
+      "related_project_id": "proj_010",
+      "created_date": "2026-04-08"
+    },
+    {
+      "id": "inc_016",
+      "title": "Vendor renewal tracker duplicated invoice reminder",
+      "description": "Bảng theo dõi gia hạn nhà cung cấp gửi nhắc hóa đơn trùng cho cùng một hợp đồng. Lỗi phát sinh từ công thức tổng hợp dữ liệu giữa procurement sheet và báo cáo tài chính chưa loại bỏ bản ghi đã hợp nhất. Sự cố chủ yếu gây phiền nhiễu cho người nhận nhưng cũng cho thấy quy trình kiểm tra dữ liệu vận hành còn lỏng.",
+      "severity": "medium",
+      "status": "resolved",
+      "reporter_id": "emp_049",
+      "assigned_to": "emp_046",
+      "related_project_id": null,
+      "created_date": "2026-02-11"
+    },
+    {
+      "id": "inc_017",
+      "title": "Component token naming mismatch in design system release",
+      "description": "Một bản phát hành của Atlas Design System dùng tên token màu mới nhưng tài liệu migration lại giữ tên cũ. Điều này khiến một vài màn hình nội bộ bị lệch style sau khi frontend cập nhật gói component. Sự cố được xác nhận nhanh và hiện đã có patch note rõ hơn cho các team sử dụng.",
+      "severity": "medium",
+      "status": "resolved",
+      "reporter_id": "emp_029",
+      "assigned_to": "emp_027",
+      "related_project_id": "proj_008",
+      "created_date": "2026-01-19"
+    },
+    {
+      "id": "inc_018",
+      "title": "Forecast dashboard tooltip displayed rounded values only",
+      "description": "Ở Treasury Forecast Hub, tooltip của biểu đồ dòng tiền chỉ hiện số đã làm tròn khiến người dùng khó kiểm tra chênh lệch nhỏ giữa các kịch bản. Đây là vấn đề trải nghiệm không nghiêm trọng và không ảnh hưởng tới tính toán gốc. Team finance ghi nhận để cải thiện trong lần tinh chỉnh giao diện tiếp theo.",
+      "severity": "low",
+      "status": "resolved",
+      "reporter_id": "emp_047",
+      "assigned_to": "emp_019",
+      "related_project_id": "proj_011",
+      "created_date": "2026-02-24"
+    },
+    {
+      "id": "inc_019",
+      "title": "Brand asset folder missing one onboarding banner variant",
+      "description": "Thư mục asset thương hiệu dùng cho onboarding nội bộ bị thiếu một banner kích thước nhỏ cho màn hình laptop. Vấn đề chỉ ảnh hưởng tới tài liệu truyền thông nội bộ và không tác động tới dữ liệu hay vận hành hệ thống. Team design đã bổ sung lại file nguồn và cập nhật checklist bàn giao asset.",
+      "severity": "low",
+      "status": "resolved",
+      "reporter_id": "emp_032",
+      "assigned_to": "emp_027",
+      "related_project_id": null,
+      "created_date": "2026-03-09"
+    },
+    {
+      "id": "inc_020",
+      "title": "Experiment platform draft spec omitted rollback metric",
+      "description": "Tài liệu draft của Pulse Experimentation Platform chưa định nghĩa rõ metric dùng để quyết định rollback khi kết quả xấu xuất hiện sớm. Dự án vẫn ở giai đoạn planning nên đây chủ yếu là rủi ro yêu cầu hơn là lỗi vận hành. Tuy nhiên Product muốn bổ sung trước khi team kỹ thuật bắt đầu hiện thực hóa service phân phối traffic.",
+      "severity": "low",
+      "status": "open",
+      "reporter_id": "emp_014",
+      "assigned_to": "emp_009",
+      "related_project_id": "proj_014",
+      "created_date": "2026-04-09"
+    }
+  ]
+}
