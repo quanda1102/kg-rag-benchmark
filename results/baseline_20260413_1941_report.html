@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GraphRAG Eval — 20260413_1941</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg:       #0a0a0f;
+    --surface:  #111118;
+    --border:   #1e1e2e;
+    --accent1:  #00ff9d;
+    --accent2:  #00b8ff;
+    --accent3:  #ff6b6b;
+    --accent4:  #ffd93d;
+    --text:     #e0e0f0;
+    --muted:    #6060a0;
+    --muted-strong: #9ea4d1;
+    --correct:  #00ff9d;
+    --partial:  #ffd93d;
+    --incorrect:#ff6b6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent1);
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+  }
+
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .meta-val {
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .meta-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .meta-val.cost {
+    color: var(--accent4);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
+
+  /* ── Main ── */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 3rem 4rem;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Summary cards ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .summary-card:hover { border-color: var(--accent1); }
+
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  }
+
+  .card-variant {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .card-group-title {
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1rem 0 1rem;
+  }
+
+  .card-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  @media (max-width: 640px) {
+    .card-metrics { grid-template-columns: 1fr 1fr; }
+  }
+
+  .card-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .metric-primary {
+    background: linear-gradient(180deg, rgba(0,255,157,0.08), rgba(255,255,255,0.02));
+  }
+
+  .metric-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+  }
+
+  /* ── Charts ── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .chart-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+
+  .chart-wrap {
+    position: relative;
+    height: 220px;
+  }
+
+  /* ── Table ── */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    z-index: 10;
+  }
+
+  th {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .q-id {
+    font-weight: 700;
+    color: var(--accent2);
+    white-space: nowrap;
+    font-size: 0.75rem;
+    position: sticky;
+    left: 0;
+    background: var(--surface);
+    z-index: 2;
+  }
+
+  .q-type {
+    white-space: nowrap;
+    position: sticky;
+    left: 71px;
+    background: var(--surface);
+    z-index: 2;
+  }
+
+  .type-tag {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(0,184,255,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(0,184,255,0.2);
+    white-space: nowrap;
+  }
+
+  .q-text {
+    min-width: 320px;
+    max-width: 420px;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .badge.correct {
+    background: rgba(0,255,157,0.1);
+    color: var(--correct);
+    border: 1px solid rgba(0,255,157,0.3);
+  }
+
+  .badge.partial {
+    background: rgba(255,217,61,0.1);
+    color: var(--partial);
+    border: 1px solid rgba(255,217,61,0.3);
+  }
+
+  .badge.incorrect {
+    background: rgba(255,107,107,0.1);
+    color: var(--incorrect);
+    border: 1px solid rgba(255,107,107,0.3);
+  }
+
+  .reasoning {
+    font-size: 0.72rem;
+    color: #a8a8cc;
+    margin-top: 0.55rem;
+    max-width: 280px;
+    line-height: 1.4;
+  }
+
+  .result-cell {
+    min-width: 210px;
+  }
+
+  .result-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .latency-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    font-size: 0.65rem;
+    line-height: 1;
+  }
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .note-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .note-title {
+    font-size: 0.68rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.45rem;
+    font-weight: 700;
+  }
+
+  .note-body {
+    color: #a8a8cc;
+    font-size: 0.74rem;
+    line-height: 1.55;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">GraphRAG</div>
+    <div class="header-divider"></div>
+    <div class="header-title">Evaluation Report</div>
+  </div>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-val">30</span>
+      <span class="meta-label">Questions</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">90</span>
+      <span class="meta-label">Variant Runs</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">20260413_1941</span>
+      <span class="meta-label">Run ID</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val cost">$0.1468</span>
+      <span class="meta-label">Run Gen Cost</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val cost">$0.2064</span>
+      <span class="meta-label">Run Judge Cost</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val cost">$0.3532</span>
+      <span class="meta-label">Run Total Cost</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Summary -->
+  <section class="section">
+    <div class="section-title">Summary</div>
+    <div class="summary-grid">
+      
+        <div class="summary-card">
+            <div class="card-variant">vector</div>
+            <div class="card-group-title">End-to-End</div>
+            <div class="card-metrics">
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">53.3%</span>
+                    <span class="metric-label">Answer Accuracy</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">60.0%</span>
+                    <span class="metric-label">Partial Credit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">3275ms</span>
+                    <span class="metric-label">Avg Latency</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0462</span>
+                    <span class="metric-label">Generation Cost</span>
+                </div>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-group-title">Retrieval Diagnostics & Eval Cost</div>
+            <div class="card-metrics">
+                <div class="card-metric">
+                    <span class="metric-val">96.7%</span>
+                    <span class="metric-label">Recall@5</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">55.2%</span>
+                    <span class="metric-label">Acc | Recall Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">31.0%</span>
+                    <span class="metric-label">Gen Fail | Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0685</span>
+                    <span class="metric-label">Judge Cost</span>
+                </div>
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">$0.1147</span>
+                    <span class="metric-label">Total Eval Cost</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="card-variant">vector+bm25</div>
+            <div class="card-group-title">End-to-End</div>
+            <div class="card-metrics">
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">53.3%</span>
+                    <span class="metric-label">Answer Accuracy</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">60.0%</span>
+                    <span class="metric-label">Partial Credit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">3336ms</span>
+                    <span class="metric-label">Avg Latency</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0508</span>
+                    <span class="metric-label">Generation Cost</span>
+                </div>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-group-title">Retrieval Diagnostics & Eval Cost</div>
+            <div class="card-metrics">
+                <div class="card-metric">
+                    <span class="metric-val">93.3%</span>
+                    <span class="metric-label">Recall@5</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">57.1%</span>
+                    <span class="metric-label">Acc | Recall Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">28.6%</span>
+                    <span class="metric-label">Gen Fail | Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0694</span>
+                    <span class="metric-label">Judge Cost</span>
+                </div>
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">$0.1202</span>
+                    <span class="metric-label">Total Eval Cost</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="card-variant">vector+bm25+graph</div>
+            <div class="card-group-title">End-to-End</div>
+            <div class="card-metrics">
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">46.7%</span>
+                    <span class="metric-label">Answer Accuracy</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">56.7%</span>
+                    <span class="metric-label">Partial Credit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">4888ms</span>
+                    <span class="metric-label">Avg Latency</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0497</span>
+                    <span class="metric-label">Generation Cost</span>
+                </div>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-group-title">Retrieval Diagnostics & Eval Cost</div>
+            <div class="card-metrics">
+                <div class="card-metric">
+                    <span class="metric-val">96.7%</span>
+                    <span class="metric-label">Recall@5</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">48.3%</span>
+                    <span class="metric-label">Acc | Recall Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">31.0%</span>
+                    <span class="metric-label">Gen Fail | Hit</span>
+                </div>
+                <div class="card-metric">
+                    <span class="metric-val">$0.0686</span>
+                    <span class="metric-label">Judge Cost</span>
+                </div>
+                <div class="card-metric metric-primary">
+                    <span class="metric-val">$0.1183</span>
+                    <span class="metric-label">Total Eval Cost</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">How To Read</div>
+    <div class="notes">
+      <div class="note-card">
+        <div class="note-title">End-to-End</div>
+        <div class="note-body">
+          <strong>Answer Accuracy</strong> và <strong>Partial Credit</strong> chấm câu trả lời cuối cùng của hệ thống. Đây là metric chính để so variant.
+        </div>
+      </div>
+      <div class="note-card">
+        <div class="note-title">Retrieval</div>
+        <div class="note-body">
+          <strong>Recall@5</strong> đo top-5 retrieved chunks có chứa đúng entity hay không, độc lập với việc model trả lời đúng hay sai.
+        </div>
+      </div>
+      <div class="note-card">
+        <div class="note-title">Post-Retrieval Failure</div>
+        <div class="note-body">
+          <strong>Acc | Recall Hit</strong> cho biết khi retrieval đã hit thì answer đúng bao nhiêu. <strong>Gen Fail | Hit</strong> cho biết retrieval đúng nhưng generation vẫn làm sai bao nhiêu.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts -->
+  <section class="section">
+    <div class="section-title">Metrics</div>
+    <div class="charts-grid">
+
+      <div class="chart-card">
+        <div class="chart-label">Accuracy by Variant</div>
+        <div class="chart-wrap">
+          <canvas id="accuracyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-label">Avg Latency (ms)</div>
+        <div class="chart-wrap">
+          <canvas id="latencyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-label">Accuracy by Question Type</div>
+        <div class="chart-wrap">
+          <canvas id="typeChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-label">Recall@5 by Variant</div>
+        <div class="chart-wrap">
+          <canvas id="recallChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Per-question table -->
+  <section class="section">
+    <div class="section-title">Per-Question Results</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Question</th>
+            <th>vector</th><th>vector+bm25</th><th>vector+bm25+graph</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+                <td class="q-id">q_001</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Phòng Engineering hiện có bao nhiêu nhân viên?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3266ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận phòng Engineering có 8 người, khớp về nghĩa với ground truth 8 nhân viên.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4769ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận phòng Engineering có 8 người, khớp với ground truth 8 nhân viên.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4028ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận phòng Engineering có 8 người, khớp về nghĩa với ground truth 8 nhân viên.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_002</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Project nào đang ở trạng thái paused?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2538ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định đúng project ở trạng thái paused là Legacy CRM Sunset, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2412ms</span>
+                        </div>
+                        <div class="reasoning">System answer xác định đúng project 'Legacy CRM Sunset' và nêu trạng thái tạm dừng, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3233ms</span>
+                        </div>
+                        <div class="reasoning">System answer xác định đúng project ở trạng thái paused là Legacy CRM Sunset, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_003</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Ai là head của phòng QA?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2498ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng head của phòng QA là Nguyễn Thị Quỳnh, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2820ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng khớp với ground truth: head của phòng QA là Nguyễn Thị Quỳnh, chức danh QA Manager không làm thay đổi nghĩa.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3644ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng người đứng đầu phòng QA là Nguyễn Thị Quỳnh, phù hợp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_004</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Atlas Design System sử dụng những tech stack chính nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3027ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời liệt kê đúng đầy đủ 4 tech stack chính trùng khớp với ground truth: Figma, React, TypeScript và Storybook.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2416ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời của hệ thống khớp đầy đủ với ground truth về bốn tech stack chính: Figma, React, TypeScript và Storybook.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3635ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời liệt kê đúng đầy đủ bốn tech stack chính là Figma, React, TypeScript và Storybook, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_005</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Incident nào vừa có severity critical vừa đang ở trạng thái open?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2675ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng incident là "Support assistant returned outdated policy snippets", khớp hoàn toàn với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3743ms</span>
+                        </div>
+                        <div class="reasoning">System kết luận không có incident nào thỏa điều kiện và nêu một mục severity thấp, trái với ground truth có incident 'Support assistant returned outdated policy snippets' là critical và open.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3944ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth có một incident cụ thể thỏa điều kiện là "Support assistant returned outdated policy snippets", nhưng system lại kết luận không có incident nào phù hợp.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_006</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Mạc Thiên An đang là head của phòng nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2822ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định Mạc Thiên An là head của phòng Design, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2737ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận Mạc Thiên An là head/quản lý của phòng Design, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4031ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận Mạc Thiên An là head của Design, khớp với ground truth là phòng Design.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_007</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">CandidateFlow ATS hiện đang ở trạng thái gì?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3726ms</span>
+                        </div>
+                        <div class="reasoning">System answer nói CandidateFlow ATS ở trạng thái 'Lên kế hoạch', tương đương với 'planning' trong ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2904ms</span>
+                        </div>
+                        <div class="reasoning">System answer nói 'Lên kế hoạch', tương đương với trạng thái 'planning' trong ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3667ms</span>
+                        </div>
+                        <div class="reasoning">System answer nói 'Lên kế hoạch', tương đương với trạng thái 'planning' trong ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_008</td>
+                <td class="q-type"><span class="type-tag">SINGLE HOP</span></td>
+                <td class="q-text">Công ty hiện có bao nhiêu incident severity critical?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2094ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ hiện có 5 incident severity critical, nhưng system answer lại trả lời không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2957ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ hiện có 5 incident severity critical, nhưng system answer lại trả lời không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">6501ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth là có 5 incident severity critical, nhưng system answer kết luận chỉ có 1 incident nghiêm trọng.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_009</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Manager của người đang lead project Orion Commerce Platform là ai?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4252ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng manager của người đang lead Orion Commerce Platform là Phan Tuấn Kiệt, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3404ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định đúng manager của người đang lead Orion Commerce Platform là Phan Tuấn Kiệt, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4148ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng manager của Lý Khánh Linh là Phan Tuấn Kiệt, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_010</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Những ai trong cùng phòng với Phạm Gia Bảo có skill PostgreSQL ở mức expert?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3431ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có ba người trong cùng phòng với Phạm Gia Bảo có PostgreSQL mức expert, nhưng câu trả lời kết luận không tìm thấy ai.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3741ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có ba người thỏa điều kiện, nhưng câu trả lời kết luận không tìm thấy ai nên mâu thuẫn trực tiếp.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4661ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có ba người trong cùng phòng với Phạm Gia Bảo có PostgreSQL mức expert, nhưng system answer kết luận không tìm thấy ai.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_011</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Ai là owner của project liên quan đến incident "Duplicate settlement rows in reconciliation summary"?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2830ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng project là LotusPay Reconciliation Engine và owner là Lê Mỹ Duyên, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3232ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận owner là Lê Mỹ Duyên, khớp hoàn toàn với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">7648ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận owner là Lê Mỹ Duyên, khớp hoàn toàn với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_012</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Department của manager của Nguyễn Văn Minh làm QA Analyst là phòng nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3489ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận manager là Nguyễn Thị Quỳnh thuộc QA và department là Phòng QA, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">5790ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận manager của Nguyễn Văn Minh thuộc phòng QA, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">5065ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận manager của Nguyễn Văn Minh thuộc phòng QA, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_013</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Ai là manager của người được giao xử lý incident "Support assistant returned outdated policy snippets"?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3039ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ manager của La Minh Tâm là Mai Lan Hương, nhưng câu trả lời kết luận không tìm thấy manager nên mâu thuẫn với đáp án đúng.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2618ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ manager của La Minh Tâm là Mai Lan Hương, nhưng câu trả lời kết luận không tìm thấy manager nên mâu thuẫn với đáp án đúng.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3968ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận không tìm thấy manager, trong khi ground truth xác định rõ manager của La Minh Tâm là Mai Lan Hương.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_014</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Những project nào thuộc department Product nhưng được owner bởi người của Data?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4150ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth có 2 project là Insight360 Analytics và ChatCare Support Assistant, nhưng câu trả lời kết luận chỉ có Insight360 Analytics nên thiếu một đáp án quan trọng.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">3433ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng một project thỏa điều kiện nhưng thiếu project còn lại là ChatCare Support Assistant nên chưa đầy đủ.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4446ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng một project thỏa điều kiện là Insight360 Analytics nhưng thiếu project còn lại là ChatCare Support Assistant nên chưa đầy đủ.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_015</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Người báo incident "CDN cache rule served stale JavaScript bundle" đang thuộc department nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3231ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận người báo incident là Lâm Quốc Việt thuộc Phòng DevOps, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3301ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth xác định Lâm Quốc Việt thuộc department DevOps, nhưng câu trả lời kết luận không tìm thấy department và chỉ nêu Platform Engineer.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4168ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth xác định Lâm Quốc Việt thuộc department DevOps, nhưng câu trả lời kết luận không tìm thấy department nên mâu thuẫn với đáp án đúng.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_016</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Ai là head của department mà project Treasury Forecast Hub thuộc về?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4047ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng Treasury Forecast Hub thuộc Finance và head của department này là Lê Mỹ Duyên, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2827ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng Treasury Forecast Hub thuộc Finance và head của department này là Lê Mỹ Duyên, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4274ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời xác định đúng project thuộc Finance và head của department này là Lê Mỹ Duyên, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_017</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Manager của người báo incident "Regression suite blocked merge queue for four hours" là ai?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2966ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng rằng manager của Vi Khánh Ngọc là Nguyễn Thị Quỳnh, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3265ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng manager của người báo incident là Nguyễn Thị Quỳnh, phù hợp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">5485ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng manager là Nguyễn Thị Quỳnh, phù hợp với ground truth và không có mâu thuẫn đáng kể.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_018</td>
+                <td class="q-type"><span class="type-tag">TWO HOP</span></td>
+                <td class="q-text">Những project nào do Lý Khánh Linh sở hữu và thuộc department Engineering?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2509ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có 2 project cụ thể thuộc Engineering do Lý Khánh Linh sở hữu, nhưng system answer kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">2511ms</span>
+                        </div>
+                        <div class="reasoning">System answer nêu đúng một project thuộc Engineering do Lý Khánh Linh sở hữu nhưng thiếu project còn lại là Legacy CRM Sunset.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4457ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng một project là Orion Commerce Platform nhưng thiếu project còn lại là Legacy CRM Sunset nên chưa đầy đủ.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_019</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Incident severity critical nào liên quan đến các project thuộc department của Đặng Quốc Trung?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2268ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có incident severity critical là "Support assistant returned outdated policy snippets", nhưng system answer lại kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2611ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có incident severity critical là "Support assistant returned outdated policy snippets", nhưng system answer lại kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4864ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ có incident severity critical là "Support assistant returned outdated policy snippets", nhưng system answer lại kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_020</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Senior engineer nào đang làm reviewer cho dự án active mà manager của Đặng Quốc Trung đang own?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2528ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth có đáp án cụ thể là Lâm Quốc Việt, nhưng system answer lại kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3648ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng reviewer là Lâm Quốc Việt, khớp hoàn toàn với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4964ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận cuối cùng là Lâm Quốc Việt, khớp đầy đủ với ground truth về reviewer của dự án active do manager của Đặng Quốc Trung sở hữu.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_021</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Department head của người được giao incident "Checkout API timeout spike during merchant flash sale" là ai?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3155ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận department head là Võ Thanh Sơn, khớp với ground truth và không có mâu thuẫn đáng kể.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3053ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định đúng department head là Võ Thanh Sơn, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">6977ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định đúng department head là Võ Thanh Sơn, phù hợp với ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_022</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Người cùng manager với Phùng Gia Hân đang own project active nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4766ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ La Minh Tâm cùng manager với Phùng Gia Hân và đang own project active ChatCare Support Assistant, nhưng câu trả lời kết luận không tìm thấy ai.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4765ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu người cùng manager là La Minh Tâm và project active là ChatCare Support Assistant, nhưng system kết luận không tìm thấy và còn nêu sai người cùng manager.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">5889ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận không tìm thấy người cùng manager và project active, trái với ground truth nêu rõ La Minh Tâm cùng manager với Phùng Gia Hân và đang own ChatCare Support Assistant.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_023</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Project active nào thuộc department của manager của Nguyễn Văn Minh ở Engineering nhưng do người ngoài department đó sở hữu?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4453ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth có đáp án cụ thể là Orion Commerce Platform, nhưng system answer kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3762ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng là Orion Commerce Platform do Lý Khánh Linh từ Product sở hữu, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">4533ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth có dự án cụ thể là Orion Commerce Platform, nhưng system answer kết luận không tìm thấy.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_024</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Ai là head của department chứa người reviewer cho project mà incident "Duplicate settlement rows in reconciliation summary" đang liên quan?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">5784ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu reviewer là Từ Hoàng Phúc thuộc Finance và head là Lê Mỹ Duyên, nhưng system kết luận không tìm thấy thông tin.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">4412ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận head là Lê Mỹ Duyên, khớp với ground truth về reviewer Từ Hoàng Phúc thuộc Finance và head department là Lê Mỹ Duyên.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">8688ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nói reviewer là Từ Hoàng Phúc thuộc Finance và head của department đó là Lê Mỹ Duyên, còn system answer kết luận sai reviewer là Lê Mỹ Duyên.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_025</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Trong project active do La Minh Tâm làm owner, ai thuộc department Design và đang làm designer?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">3912ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời kết luận đúng người là Lưu Diễm Quỳnh, khớp với ground truth về thành viên department Design đang làm designer trong project ChatCare Support Assistant do La Minh Tâm làm owner.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2706ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth xác định người thuộc department Design và làm designer trong dự án ChatCare Support Assistant là Lưu Diễm Quỳnh, nhưng system answer kết luận là Sầm Đức Tài.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">7146ms</span>
+                        </div>
+                        <div class="reasoning">Kết luận cuối cùng xác định đúng dự án ChatCare Support Assistant và đúng người thuộc Design đang làm designer là Lưu Diễm Quỳnh, khớp ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_026</td>
+                <td class="q-type"><span class="type-tag">THREE HOP</span></td>
+                <td class="q-text">Head của department quản lý người được assign incident "Offer approval SLA breached for engineering candidates" là ai?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2612ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời xác định đúng người được assign, đúng department HR và đúng head là Vương Thanh Hà, khớp với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">3004ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu rõ head của department HR là Vương Thanh Hà, nhưng câu trả lời kết luận không tìm thấy head nên mâu thuẫn với đáp án đúng.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">5300ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth xác định head của department là Vương Thanh Hà, nhưng câu trả lời kết luận không tìm thấy thông tin này.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_027</td>
+                <td class="q-type"><span class="type-tag">AMBIGUOUS</span></td>
+                <td class="q-text">Nguyễn Văn Minh đang làm việc ở department nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">2716ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng một Nguyễn Văn Minh thuộc QA nhưng ground truth có 2 người cùng tên ở hai department khác nhau nên kết luận chưa đầy đủ.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge incorrect">INCORRECT</span>
+                            <span class="latency-pill">2862ms</span>
+                        </div>
+                        <div class="reasoning">Ground truth nêu có 2 người tên Nguyễn Văn Minh thuộc hai department khác nhau, nhưng câu trả lời kết luận duy nhất là QA nên không đầy đủ và gây sai lệch.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4666ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng một Nguyễn Văn Minh thuộc QA nhưng thiếu thông tin quan trọng rằng còn một Nguyễn Văn Minh khác thuộc Engineering.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_028</td>
+                <td class="q-type"><span class="type-tag">AMBIGUOUS</span></td>
+                <td class="q-text">Nguyễn Văn Minh đang tham gia những dự án nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4044ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời cuối đã nêu đúng 3 dự án liên quan nhưng thiếu chi tiết quan trọng là có 2 người Nguyễn Văn Minh khác nhau và không tách dự án theo từng người.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4614ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng các dự án liên quan đến hai người tên Nguyễn Văn Minh nhưng chưa tách rõ theo từng người/phòng ban như ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4582ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng 3 dự án liên quan đến hai người tên Nguyễn Văn Minh nhưng không kết luận rõ theo từng người như ground truth yêu cầu.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_029</td>
+                <td class="q-type"><span class="type-tag">AMBIGUOUS</span></td>
+                <td class="q-text">Manager của Nguyễn Văn Minh là ai?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">2518ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng manager của một Nguyễn Văn Minh (ở QA) nhưng bỏ qua việc câu hỏi mơ hồ vì còn một Nguyễn Văn Minh khác ở Engineering có manager khác.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">2919ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng manager của Nguyễn Văn Minh ở QA nhưng bỏ qua việc câu hỏi mơ hồ vì còn một Nguyễn Văn Minh khác ở Engineering có manager khác.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">3675ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời đúng với Nguyễn Văn Minh ở QA nhưng bỏ qua việc câu hỏi mơ hồ vì còn một Nguyễn Văn Minh khác ở Engineering có manager khác.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+
+            <tr>
+                <td class="q-id">q_030</td>
+                <td class="q-type"><span class="type-tag">AMBIGUOUS</span></td>
+                <td class="q-text">Nguyễn Văn Minh có những skill nổi bật nào?</td>
+                
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">2920ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời đúng là có 2 Nguyễn Văn Minh và nêu gần đủ các skill chính của cả hai, nhưng thiếu chi tiết quan trọng là Agile Delivery của người QA.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge correct">CORRECT</span>
+                            <span class="latency-pill">2836ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời nêu đúng cả hai Nguyễn Văn Minh và liệt kê đầy đủ các skill nổi bật tương ứng với ground truth.</div>
+                    </div>
+                </td>
+            
+                <td>
+                    <div class="result-cell">
+                        <div class="result-top">
+                            <span class="badge partial">PARTIAL</span>
+                            <span class="latency-pill">4342ms</span>
+                        </div>
+                        <div class="reasoning">Câu trả lời đúng một Nguyễn Văn Minh ở QA với các skill Cypress, SQL, Agile Delivery và JMeter nhưng bỏ sót Nguyễn Văn Minh ở Engineering và thêm chi tiết ngoài ground truth.</div>
+                    </div>
+                </td>
+            
+            </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>GraphRAG Evaluation Pipeline</span>
+  <span>Generated 2026-04-13 19:41</span>
+</footer>
+
+<script>
+const VARIANTS = ["vector", "vector+bm25", "vector+bm25+graph"];
+const COLORS   = ['#00ff9d', '#00b8ff', '#ff6b6b', '#ffd93d'];
+
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: {
+        color: '#c4caec',
+        font: { family: 'JetBrains Mono', size: 11, weight: '600' },
+        boxWidth: 12,
+        padding: 18,
+      }
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: '#c4caec',
+        font: { family: 'JetBrains Mono', size: 10, weight: '600' },
+        padding: 8,
+      },
+      grid:  { color: 'rgba(82, 88, 136, 0.18)' },
+      border: { color: 'rgba(120, 128, 184, 0.28)' },
+    },
+    y: {
+      ticks: {
+        color: '#c4caec',
+        font: { family: 'JetBrains Mono', size: 10, weight: '600' },
+        padding: 8,
+      },
+      grid:  { color: 'rgba(82, 88, 136, 0.18)' },
+      border: { color: 'rgba(120, 128, 184, 0.28)' },
+    },
+  },
+};
+
+// Accuracy bar
+new Chart(document.getElementById('accuracyChart'), {
+  type: 'bar',
+  data: {
+    labels: VARIANTS,
+    datasets: [{
+      label: 'Accuracy %',
+      data: [53.3, 53.3, 46.7],
+      backgroundColor: COLORS.map(c => c + '33'),
+      borderColor: COLORS,
+      borderWidth: 2,
+      borderRadius: 4,
+    }, {
+      label: 'Partial Credit %',
+      data: [60.0, 60.0, 56.7],
+      backgroundColor: 'transparent',
+      borderColor: COLORS.map(c => c + '88'),
+      borderWidth: 1,
+      borderDash: [4, 4],
+      type: 'line',
+      tension: 0.3,
+      pointRadius: 4,
+    }]
+  },
+  options: { ...baseOpts, scales: { ...baseOpts.scales, y: { ...baseOpts.scales.y, min: 0, max: 100 } } },
+});
+
+// Latency bar
+new Chart(document.getElementById('latencyChart'), {
+  type: 'bar',
+  data: {
+    labels: VARIANTS,
+    datasets: [{
+      label: 'Avg Latency (ms)',
+      data: [3275, 3336, 4888],
+      backgroundColor: ['#00ff9d33', '#00b8ff33', '#ff6b6b33'],
+      borderColor: ['#00ff9d', '#00b8ff', '#ff6b6b'],
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: baseOpts,
+});
+
+// Type radar
+new Chart(document.getElementById('typeChart'), {
+  type: 'radar',
+  data: {
+    labels: ["ambiguous", "single_hop", "three_hop", "two_hop"],
+    datasets: [{"label": "vector", "data": [0.0, 87.5, 37.5, 60.0], "backgroundColor": "#00ff9d33", "borderColor": "#00ff9d", "borderWidth": 2}, {"label": "vector+bm25", "data": [25.0, 75.0, 50.0, 50.0], "backgroundColor": "#00b8ff33", "borderColor": "#00b8ff", "borderWidth": 2}, {"label": "vector+bm25+graph", "data": [0.0, 75.0, 37.5, 50.0], "backgroundColor": "#ff6b6b33", "borderColor": "#ff6b6b", "borderWidth": 2}],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#c4caec',
+          font: { family: 'JetBrains Mono', size: 11, weight: '600' },
+          boxWidth: 12,
+        }
+      }
+    },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        ticks: {
+          color: '#c4caec',
+          backdropColor: 'transparent',
+          font: { family: 'JetBrains Mono', size: 9, weight: '600' },
+          stepSize: 25
+        },
+        angleLines: { color: 'rgba(82, 88, 136, 0.18)' },
+        grid:  { color: 'rgba(82, 88, 136, 0.18)' },
+        pointLabels: {
+          color: '#c4caec',
+          font: { family: 'JetBrains Mono', size: 10, weight: '600' }
+        },
+      }
+    },
+  },
+});
+
+// Recall bar
+new Chart(document.getElementById('recallChart'), {
+  type: 'bar',
+  data: {
+    labels: VARIANTS,
+    datasets: [{
+      label: 'Recall@5 %',
+      data: [96.7, 93.3, 96.7],
+      backgroundColor: ['#00ff9d33', '#00b8ff33', '#ff6b6b33'],
+      borderColor: ['#00ff9d', '#00b8ff', '#ff6b6b'],
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: { ...baseOpts, scales: { ...baseOpts.scales, y: { ...baseOpts.scales.y, min: 0, max: 100 } } },
+});
+</script>
+</body>
+</html>

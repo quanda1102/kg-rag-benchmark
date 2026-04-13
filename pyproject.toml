@@ -7,34 +7,29 @@ requires-python = ">=3.11"
 dependencies = [
     # LLM
     "openai",
-
     # Graph
     "neo4j>=5.0.0",
-    "networkx>=3.0",          # fallback / visualization
-
+    "networkx>=3.0", # fallback / visualization
     # Vector store
     "sqlite-vec>=0.1.0",
     "numpy>=1.26.0",
-
     # Embedding
     "sentence-transformers>=3.0.0",
-
     # BM25
     "rank-bm25>=0.2.2",
-
     # Reranking
-    "flashrank>=0.2.0",        # cross-encoder reranker, no GPU needed
-
+    "flashrank>=0.2.0", # cross-encoder reranker, no GPU needed
     # Markdown parsing (chunking)
     "markdown-it-py>=3.0.0",
-
     # Config
     "pyyaml>=6.0",
     "pydantic>=2.0.0",
-
     # Eval & results
     "pandas>=2.0.0",
     "tqdm>=4.0.0",
+    "chromadb>=1.5.7",
+    "python-dotenv>=1.2.2",
+    "neo4j-graphrag[fuzzy-matching]>=1.14.1",
 ]
 
 [project.optional-dependencies]

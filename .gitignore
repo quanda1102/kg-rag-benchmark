@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Vector database
+.chromadb
+
+# Bm25 index
+.bm25
+

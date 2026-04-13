@@ -1,30 +1,27 @@
 # experiments/baseline.yaml
-# First experiment: heading chunker + bge-m3 + bfs + rrf
+# First experiment: heading chunker + Qwen3-Embedding-0.6B + cypher_llm + rrf
 # Run with: python -m eval.run --config experiments/baseline.yaml
 
 name: baseline
-description: "Heading chunker, bge-m3 embedding, BFS traversal, RRF reranking"
+description: "Heading chunker, Qwen3-Embedding-0.6B, Cypher LLM traversal, RRF reranking"
 
 chunking:
-  strategy: heading          # heading | sliding_window
+  strategy: heading
   # sliding_window only:
   # chunk_size: 512
   # overlap: 64
 
 embedding:
-  model: BAAI/bge-m3         # large multilingual, good for Vietnamese+English
-  # alternatives:
-  # model: BAAI/bge-small-en-v1.5   # small general
-  # model: intfloat/multilingual-e5-large  # vietnamese-optimized
+  model: Qwen/Qwen3-Embedding-0.6B
 
 graph:
-  traversal: bfs             # bfs | predefined | cypher_llm
-  bfs_depth: 3               # only used when traversal: bfs
+  traversal: cypher_llm      # bfs | predefined | cypher_llm
+  bfs_depth: 3               # unused when cypher_llm
 
 reranking:
-  strategy: rrf              # rrf | cross_encoder | llm
-  rrf_k: 60                  # only used when strategy: rrf
-  top_k: 5                   # final number of passages to assemble
+  strategy: rrf
+  rrf_k: 60
+  top_k: 5
 
 neo4j:
   uri: bolt://localhost:7687
@@ -32,7 +29,7 @@ neo4j:
   password: Aikido202
 
 llm:
-  model: gpt-5.4
+  model: gpt-5.4-mini
   extraction_max_tokens: 2048
   judge_max_tokens: 512
 

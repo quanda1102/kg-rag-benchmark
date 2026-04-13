@@ -1,0 +1,252 @@
+{
+  "config": "experiments/baseline.yaml",
+  "timestamp": "20260413_1956",
+  "variants": [
+    "vector",
+    "vector+bm25",
+    "vector+bm25+graph"
+  ],
+  "questions": [
+    {
+      "id": "q_019",
+      "question": "Incident severity critical nào liên quan đến các project thuộc department của Đặng Quốc Trung?",
+      "type": "three_hop",
+      "ground_truth": "Đặng Quốc Trung thuộc department Product, và incident severity critical liên quan đến project của department này là \"Support assistant returned outdated policy snippets\".",
+      "variants": {
+        "vector": {
+          "retrieved": [
+            {
+              "heading": "Đặng Quốc Trung — Business Analyst | Product",
+              "content": "# Đặng Quốc Trung — Business Analyst | Product\n\nĐặng Quốc Trung gia nhập TechViet Solutions vào tháng 2 năm 2022. Anh hiện làm cầu nối giữa yêu cầu nghiệp vụ và đội triển khai, phụ trách bóc tách quy trình, dependency và chốt lại ngôn ngữ chung cho nhiều bên.\n\nChuyên môn của Đặng Quốc Trung xoay quanh SQL, roadmapping ở mức hỗ trợ, agile delivery và phân tích dữ liệu nghiệp vụ. Ở những dự án như ChatCare Support Assistant hoặc Legacy CRM Sunset, anh thường là người làm rõ các điều kiện biên và tài liệu hóa quyết định.\n\nAnh báo cáo trực tiếp cho Lý Khánh Linh, Senior Product Manager. Trước khi vào Product, anh đã làm nhiều với các phòng nghiệp vụ nên có khả năng nhìn ra điểm nghẽn giữa vận hành, tài chính và kỹ thuật khá nhanh.\n\n---"
+            },
+            {
+              "heading": "Trương Công Định — Security Engineer | DevOps",
+              "content": "# Trương Công Định — Security Engineer | DevOps\n\nTrương Công Định vào TechViet Solutions từ tháng 7 năm 2022. Anh chịu trách nhiệm rà soát các điểm yếu bảo mật ở hạ tầng và ứng dụng, đồng thời hỗ trợ team triển khai secret management, hardening và policy nội bộ.\n\nChuyên môn của Trương Công Định bao gồm AWS, Terraform, CI/CD và Kubernetes ở góc nhìn security. Anh thường xuất hiện trong các đợt rà soát trước release lớn hoặc sau khi có incident liên quan đến cấu hình nhạy cảm.\n\nTrương Công Định báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Công việc của anh không quá ồn ào, nhưng lại chạm vào nhiều nhóm vì phần bảo mật thường lộ ra rõ nhất khi hệ thống gặp áp lực thật.\n\n---"
+            },
+            {
+              "heading": "Nghiêm Tuấn Dũng — Test Lead | QA",
+              "content": "# Nghiêm Tuấn Dũng — Test Lead | QA\n\nNghiêm Tuấn Dũng gia nhập TechViet Solutions vào tháng 10 năm 2020. Anh làm vai trò điều phối test plan giữa nhiều dự án, hỗ trợ review chiến lược chất lượng và giúp các nhóm nhìn rõ rủi ro release từ sớm.\n\nAnh có nền tảng tốt về agile delivery, Cypress và performance testing ở mức điều phối. Trong các initiative như Mercury QA Automation hoặc ChatCare Support Assistant, Nghiêm Tuấn Dũng thường là người gom bức tranh tổng thể thay vì đi sâu vào một framework cụ thể.\n\nNghiêm Tuấn Dũng báo cáo trực tiếp cho Nguyễn Thị Quỳnh, QA Manager. Anh có thế mạnh ở việc truyền đạt rủi ro với stakeholder sao cho vừa rõ, vừa không gây hoảng loạn không cần thiết.\n\n---"
+            },
+            {
+              "heading": "Khưu Anh Thư — SRE Lead | DevOps",
+              "content": "# Khưu Anh Thư — SRE Lead | DevOps\n\nKhưu Anh Thư gia nhập TechViet Solutions vào tháng 12 năm 2020. Cô phụ trách các bài toán liên quan đến SLO, observability, tự động hóa vận hành và cách hệ thống phản ứng khi có sự cố.\n\nCô làm việc sâu với Kubernetes, AWS, CI/CD và JMeter ở vai trò phục vụ reliability. Ở những incident nghiêm trọng hoặc dự án có yêu cầu ổn định cao, Khưu Anh Thư thường là người đứng ra điều phối xử lý kỹ thuật.\n\nKhưu Anh Thư báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Hiện đang quản lý team gồm 3 thành viên. Ngoài khả năng vận hành, cô còn quen với việc viết quy trình ứng cứu và biến kinh nghiệm từ incident thành thay đổi bền vững cho platform.\n\n---"
+            },
+            {
+              "heading": "Trịnh Quốc An — Data Engineer | Data",
+              "content": "# Trịnh Quốc An — Data Engineer | Data\n\nTrịnh Quốc An bắt đầu làm việc tại TechViet Solutions từ tháng 1 năm 2021. Anh phụ trách phần nặng về đường ống dữ liệu: ingest, xử lý incremental, làm sạch dữ liệu và duy trì các lớp model phục vụ downstream.\n\nAnh có kinh nghiệm sâu với Python, Airflow, Spark và dbt. Trong thực tế, Trịnh Quốc An gắn chặt với Sông Hồng Data Lake, đồng thời cũng tham gia khá nhiều vào LotusPay Reconciliation Engine khi cần xử lý luồng dữ liệu đối soát.\n\nTrịnh Quốc An báo cáo trực tiếp cho Mai Lan Hương, Senior Data Scientist. Anh được đánh giá cao ở khả năng giữ pipeline chạy ổn định trong khi yêu cầu nguồn dữ liệu thay đổi liên tục.\n\n---"
+            }
+          ],
+          "answer": "Không tìm thấy.",
+          "verdict": "INCORRECT",
+          "reasoning": "Ground truth nêu rõ có incident severity critical là \"Support assistant returned outdated policy snippets\", nhưng system answer lại kết luận không tìm thấy.",
+          "latency_ms": 7116.240416995424,
+          "prompt_tokens": 1407,
+          "completion_tokens": 7,
+          "generation_cost_usd": 0.00108675,
+          "judge_prompt_tokens": 544,
+          "judge_completion_tokens": 47,
+          "judge_cost_usd": 0.002065
+        },
+        "vector+bm25": {
+          "retrieved": [
+            {
+              "heading": "Đặng Quốc Trung — Business Analyst | Product",
+              "content": "# Đặng Quốc Trung — Business Analyst | Product\n\nĐặng Quốc Trung gia nhập TechViet Solutions vào tháng 2 năm 2022. Anh hiện làm cầu nối giữa yêu cầu nghiệp vụ và đội triển khai, phụ trách bóc tách quy trình, dependency và chốt lại ngôn ngữ chung cho nhiều bên.\n\nChuyên môn của Đặng Quốc Trung xoay quanh SQL, roadmapping ở mức hỗ trợ, agile delivery và phân tích dữ liệu nghiệp vụ. Ở những dự án như ChatCare Support Assistant hoặc Legacy CRM Sunset, anh thường là người làm rõ các điều kiện biên và tài liệu hóa quyết định.\n\nAnh báo cáo trực tiếp cho Lý Khánh Linh, Senior Product Manager. Trước khi vào Product, anh đã làm nhiều với các phòng nghiệp vụ nên có khả năng nhìn ra điểm nghẽn giữa vận hành, tài chính và kỹ thuật khá nhanh.\n\n---"
+            },
+            {
+              "heading": "Khưu Anh Thư — SRE Lead | DevOps",
+              "content": "# Khưu Anh Thư — SRE Lead | DevOps\n\nKhưu Anh Thư gia nhập TechViet Solutions vào tháng 12 năm 2020. Cô phụ trách các bài toán liên quan đến SLO, observability, tự động hóa vận hành và cách hệ thống phản ứng khi có sự cố.\n\nCô làm việc sâu với Kubernetes, AWS, CI/CD và JMeter ở vai trò phục vụ reliability. Ở những incident nghiêm trọng hoặc dự án có yêu cầu ổn định cao, Khưu Anh Thư thường là người đứng ra điều phối xử lý kỹ thuật.\n\nKhưu Anh Thư báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Hiện đang quản lý team gồm 3 thành viên. Ngoài khả năng vận hành, cô còn quen với việc viết quy trình ứng cứu và biến kinh nghiệm từ incident thành thay đổi bền vững cho platform.\n\n---"
+            },
+            {
+              "heading": "Legacy CRM Sunset",
+              "content": "# Legacy CRM Sunset\n\n**Trạng thái:** Tạm dừng\n**Phòng ban phụ trách:** Engineering\n**Thời gian:** 07/04/2025 — Hiện tại\n\n## Tổng quan\n\nLegacy CRM Sunset là chương trình loại bỏ hệ thống CRM cũ, vốn đang gây ra nhiều technical debt và chênh lệch dữ liệu giữa các bộ phận. Đây không phải dự án “xây mới hấp dẫn”, nhưng lại là một trong những nỗ lực quan trọng nhất nếu công ty muốn giảm chi phí bảo trì dài hạn.\n\nGiá trị của dự án nằm ở chỗ làm sạch hạ tầng nghiệp vụ, gom logic rời rạc về một nơi và tránh phải duy trì hai nền tảng song song quá lâu. Tuy nhiên, bài toán ở đây không chỉ là kỹ thuật, mà còn nằm nhiều ở việc chốt nghiệp vụ giữa các bên liên quan.\n\n## Team\n\nLý Khánh Linh là project owner. Nguyễn Văn Minh và Phạm Gia Bảo phụ trách các phần backend chuyển đổi, Đặng Quốc Trung hỗ trợ review requirement, Nguyễn Văn Minh ở QA theo dõi chất lượng migration, còn Âu Hà My hỗ trợ thiết kế cho những luồng giao diện còn phải giữ tạm thời. Đây là một dự án có team không lớn nhưng dependency rất nhiều.\n\n## Tech Stack & Approach\n\nDự án dùng Node.js, PostgreSQL, React và các script migration dữ liệu. Approach ban đầu là chia migration theo cụm khách hàng và theo từng miền nghiệp vụ, thay vì thực hiện một lần duy nhất. Cách làm này giúp giảm rủi ro nhưng lại kéo dài thời gian vì phải xử lý nhiều tình huống legacy khác nhau.\n\n## Ghi chú\n\nDự án hiện tạm dừng chủ yếu vì chưa chốt được dependency nghiệp vụ giữa các phòng ban. Ngoài ra, các vấn đề về chất lượng dữ liệu cũ khiến việc kiểm chứng kết quả migration khó hơn dự tính ban đầu.\n\n=== INCIDENT REPORTS ==="
+            },
+            {
+              "heading": "Experiment platform draft spec omitted rollback metric",
+              "content": "# Experiment platform draft spec omitted rollback metric\n\nMức độ: Thấp | Trạng thái: Mở | Ngày tạo: 09/04/2026\n\n**Báo cáo bởi:** Dương Thảo Vy, Product Analyst\n**Được assign cho:** Phan Tuấn Kiệt, Head of Product\n**Dự án liên quan:** Pulse Experimentation Platform\n\n---\n\n**Mô tả vấn đề:**\n\nBản đặc tả nháp của Pulse Experimentation Platform chưa nêu rõ metric nào sẽ được dùng làm điều kiện rollback khi kết quả experiment xấu xuất hiện sớm. Đây chưa phải lỗi kỹ thuật vì dự án vẫn đang ở giai đoạn planning, nhưng là khoảng trống có thể dẫn đến việc build nền tảng mà không đủ guardrail.\n\n**Nguyên nhân xác định:**\n\nTrong giai đoạn đầu, nhóm tập trung nhiều vào kiến trúc phân phối traffic và cách đo success metric hơn là cách dừng thử nghiệm an toàn. Chính vì thế, rollback metric bị xem nhẹ dù nó là phần rất quan trọng khi chạy experiment ở production. Vấn đề nằm ở chỗ requirement chưa đủ chín.\n\n**Hành động đã thực hiện:**\n\nPhan Tuấn Kiệt đang tổng hợp lại các use case cần guardrail và yêu cầu team Product xác định rõ bộ metric tối thiểu trước khi technical design đi xa hơn. Tài liệu draft hiện được đánh dấu cần bổ sung ở vòng review tiếp theo.\n\n=== DEPARTMENT OVERVIEWS ==="
+            },
+            {
+              "heading": "Trương Công Định — Security Engineer | DevOps",
+              "content": "# Trương Công Định — Security Engineer | DevOps\n\nTrương Công Định vào TechViet Solutions từ tháng 7 năm 2022. Anh chịu trách nhiệm rà soát các điểm yếu bảo mật ở hạ tầng và ứng dụng, đồng thời hỗ trợ team triển khai secret management, hardening và policy nội bộ.\n\nChuyên môn của Trương Công Định bao gồm AWS, Terraform, CI/CD và Kubernetes ở góc nhìn security. Anh thường xuất hiện trong các đợt rà soát trước release lớn hoặc sau khi có incident liên quan đến cấu hình nhạy cảm.\n\nTrương Công Định báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Công việc của anh không quá ồn ào, nhưng lại chạm vào nhiều nhóm vì phần bảo mật thường lộ ra rõ nhất khi hệ thống gặp áp lực thật.\n\n---"
+            }
+          ],
+          "answer": "Không tìm thấy.",
+          "verdict": "INCORRECT",
+          "reasoning": "Ground truth nêu rõ có incident severity critical là \"Support assistant returned outdated policy snippets\", nhưng system answer lại kết luận không tìm thấy.",
+          "latency_ms": 2819.6363750030287,
+          "prompt_tokens": 1764,
+          "completion_tokens": 7,
+          "generation_cost_usd": 0.0013545,
+          "judge_prompt_tokens": 544,
+          "judge_completion_tokens": 47,
+          "judge_cost_usd": 0.002065
+        },
+        "vector+bm25+graph": {
+          "retrieved": [
+            {
+              "heading": "Đặng Quốc Trung — Business Analyst | Product",
+              "content": "# Đặng Quốc Trung — Business Analyst | Product\n\nĐặng Quốc Trung gia nhập TechViet Solutions vào tháng 2 năm 2022. Anh hiện làm cầu nối giữa yêu cầu nghiệp vụ và đội triển khai, phụ trách bóc tách quy trình, dependency và chốt lại ngôn ngữ chung cho nhiều bên.\n\nChuyên môn của Đặng Quốc Trung xoay quanh SQL, roadmapping ở mức hỗ trợ, agile delivery và phân tích dữ liệu nghiệp vụ. Ở những dự án như ChatCare Support Assistant hoặc Legacy CRM Sunset, anh thường là người làm rõ các điều kiện biên và tài liệu hóa quyết định.\n\nAnh báo cáo trực tiếp cho Lý Khánh Linh, Senior Product Manager. Trước khi vào Product, anh đã làm nhiều với các phòng nghiệp vụ nên có khả năng nhìn ra điểm nghẽn giữa vận hành, tài chính và kỹ thuật khá nhanh.\n\n---"
+            },
+            {
+              "heading": "Khưu Anh Thư — SRE Lead | DevOps",
+              "content": "# Khưu Anh Thư — SRE Lead | DevOps\n\nKhưu Anh Thư gia nhập TechViet Solutions vào tháng 12 năm 2020. Cô phụ trách các bài toán liên quan đến SLO, observability, tự động hóa vận hành và cách hệ thống phản ứng khi có sự cố.\n\nCô làm việc sâu với Kubernetes, AWS, CI/CD và JMeter ở vai trò phục vụ reliability. Ở những incident nghiêm trọng hoặc dự án có yêu cầu ổn định cao, Khưu Anh Thư thường là người đứng ra điều phối xử lý kỹ thuật.\n\nKhưu Anh Thư báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Hiện đang quản lý team gồm 3 thành viên. Ngoài khả năng vận hành, cô còn quen với việc viết quy trình ứng cứu và biến kinh nghiệm từ incident thành thay đổi bền vững cho platform.\n\n---"
+            },
+            {
+              "heading": "Legacy CRM Sunset",
+              "content": "# Legacy CRM Sunset\n\n**Trạng thái:** Tạm dừng\n**Phòng ban phụ trách:** Engineering\n**Thời gian:** 07/04/2025 — Hiện tại\n\n## Tổng quan\n\nLegacy CRM Sunset là chương trình loại bỏ hệ thống CRM cũ, vốn đang gây ra nhiều technical debt và chênh lệch dữ liệu giữa các bộ phận. Đây không phải dự án “xây mới hấp dẫn”, nhưng lại là một trong những nỗ lực quan trọng nhất nếu công ty muốn giảm chi phí bảo trì dài hạn.\n\nGiá trị của dự án nằm ở chỗ làm sạch hạ tầng nghiệp vụ, gom logic rời rạc về một nơi và tránh phải duy trì hai nền tảng song song quá lâu. Tuy nhiên, bài toán ở đây không chỉ là kỹ thuật, mà còn nằm nhiều ở việc chốt nghiệp vụ giữa các bên liên quan.\n\n## Team\n\nLý Khánh Linh là project owner. Nguyễn Văn Minh và Phạm Gia Bảo phụ trách các phần backend chuyển đổi, Đặng Quốc Trung hỗ trợ review requirement, Nguyễn Văn Minh ở QA theo dõi chất lượng migration, còn Âu Hà My hỗ trợ thiết kế cho những luồng giao diện còn phải giữ tạm thời. Đây là một dự án có team không lớn nhưng dependency rất nhiều.\n\n## Tech Stack & Approach\n\nDự án dùng Node.js, PostgreSQL, React và các script migration dữ liệu. Approach ban đầu là chia migration theo cụm khách hàng và theo từng miền nghiệp vụ, thay vì thực hiện một lần duy nhất. Cách làm này giúp giảm rủi ro nhưng lại kéo dài thời gian vì phải xử lý nhiều tình huống legacy khác nhau.\n\n## Ghi chú\n\nDự án hiện tạm dừng chủ yếu vì chưa chốt được dependency nghiệp vụ giữa các phòng ban. Ngoài ra, các vấn đề về chất lượng dữ liệu cũ khiến việc kiểm chứng kết quả migration khó hơn dự tính ban đầu.\n\n=== INCIDENT REPORTS ==="
+            },
+            {
+              "heading": "Experiment platform draft spec omitted rollback metric",
+              "content": "# Experiment platform draft spec omitted rollback metric\n\nMức độ: Thấp | Trạng thái: Mở | Ngày tạo: 09/04/2026\n\n**Báo cáo bởi:** Dương Thảo Vy, Product Analyst\n**Được assign cho:** Phan Tuấn Kiệt, Head of Product\n**Dự án liên quan:** Pulse Experimentation Platform\n\n---\n\n**Mô tả vấn đề:**\n\nBản đặc tả nháp của Pulse Experimentation Platform chưa nêu rõ metric nào sẽ được dùng làm điều kiện rollback khi kết quả experiment xấu xuất hiện sớm. Đây chưa phải lỗi kỹ thuật vì dự án vẫn đang ở giai đoạn planning, nhưng là khoảng trống có thể dẫn đến việc build nền tảng mà không đủ guardrail.\n\n**Nguyên nhân xác định:**\n\nTrong giai đoạn đầu, nhóm tập trung nhiều vào kiến trúc phân phối traffic và cách đo success metric hơn là cách dừng thử nghiệm an toàn. Chính vì thế, rollback metric bị xem nhẹ dù nó là phần rất quan trọng khi chạy experiment ở production. Vấn đề nằm ở chỗ requirement chưa đủ chín.\n\n**Hành động đã thực hiện:**\n\nPhan Tuấn Kiệt đang tổng hợp lại các use case cần guardrail và yêu cầu team Product xác định rõ bộ metric tối thiểu trước khi technical design đi xa hơn. Tài liệu draft hiện được đánh dấu cần bổ sung ở vòng review tiếp theo.\n\n=== DEPARTMENT OVERVIEWS ==="
+            },
+            {
+              "heading": "Trương Công Định — Security Engineer | DevOps",
+              "content": "# Trương Công Định — Security Engineer | DevOps\n\nTrương Công Định vào TechViet Solutions từ tháng 7 năm 2022. Anh chịu trách nhiệm rà soát các điểm yếu bảo mật ở hạ tầng và ứng dụng, đồng thời hỗ trợ team triển khai secret management, hardening và policy nội bộ.\n\nChuyên môn của Trương Công Định bao gồm AWS, Terraform, CI/CD và Kubernetes ở góc nhìn security. Anh thường xuất hiện trong các đợt rà soát trước release lớn hoặc sau khi có incident liên quan đến cấu hình nhạy cảm.\n\nTrương Công Định báo cáo trực tiếp cho Võ Thanh Sơn, Head of DevOps. Công việc của anh không quá ồn ào, nhưng lại chạm vào nhiều nhóm vì phần bảo mật thường lộ ra rõ nhất khi hệ thống gặp áp lực thật.\n\n---"
+            }
+          ],
+          "answer": "Không tìm thấy.",
+          "verdict": "INCORRECT",
+          "reasoning": "Ground truth nêu rõ có incident severity critical là \"Support assistant returned outdated policy snippets\", nhưng system answer lại kết luận không tìm thấy.",
+          "latency_ms": 4618.101833002584,
+          "prompt_tokens": 1764,
+          "completion_tokens": 7,
+          "generation_cost_usd": 0.0013545,
+          "judge_prompt_tokens": 544,
+          "judge_completion_tokens": 47,
+          "judge_cost_usd": 0.002065
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "vector": {
+      "accuracy": 0.0,
+      "partial_credit": 0.0,
+      "recall_at_5": 1.0,
+      "retrieval_eligible_total": 1,
+      "recall_hits": 1,
+      "answer_accuracy_when_recalled": 0.0,
+      "answer_partial_credit_when_recalled": 0.0,
+      "generation_failure_rate_when_recalled": 1.0,
+      "correct_with_recall_hit": 0,
+      "partial_with_recall_hit": 0,
+      "incorrect_with_recall_hit": 1,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 1,
+      "avg_latency_ms": 7116.240416995424,
+      "total_prompt_tokens": 1407,
+      "total_completion_tokens": 7,
+      "total_generation_cost_usd": 0.00108675,
+      "total_judge_prompt_tokens": 544,
+      "total_judge_completion_tokens": 47,
+      "total_judge_cost_usd": 0.002065,
+      "total_eval_cost_usd": 0.00315175,
+      "by_type": {
+        "three_hop": {
+          "total": 1,
+          "correct": 0,
+          "partial": 0,
+          "incorrect": 1,
+          "retrieval_eligible_total": 1,
+          "recall_hits": 1,
+          "correct_with_recall_hit": 0,
+          "partial_with_recall_hit": 0,
+          "incorrect_with_recall_hit": 1,
+          "accuracy": 0.0,
+          "partial_credit": 0.0,
+          "recall_at_5": 1.0,
+          "answer_accuracy_when_recalled": 0.0,
+          "answer_partial_credit_when_recalled": 0.0,
+          "generation_failure_rate_when_recalled": 1.0
+        }
+      }
+    },
+    "vector+bm25+graph": {
+      "accuracy": 0.0,
+      "partial_credit": 0.0,
+      "recall_at_5": 1.0,
+      "retrieval_eligible_total": 1,
+      "recall_hits": 1,
+      "answer_accuracy_when_recalled": 0.0,
+      "answer_partial_credit_when_recalled": 0.0,
+      "generation_failure_rate_when_recalled": 1.0,
+      "correct_with_recall_hit": 0,
+      "partial_with_recall_hit": 0,
+      "incorrect_with_recall_hit": 1,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 1,
+      "avg_latency_ms": 4618.101833002584,
+      "total_prompt_tokens": 1764,
+      "total_completion_tokens": 7,
+      "total_generation_cost_usd": 0.0013545,
+      "total_judge_prompt_tokens": 544,
+      "total_judge_completion_tokens": 47,
+      "total_judge_cost_usd": 0.002065,
+      "total_eval_cost_usd": 0.0034195,
+      "by_type": {
+        "three_hop": {
+          "total": 1,
+          "correct": 0,
+          "partial": 0,
+          "incorrect": 1,
+          "retrieval_eligible_total": 1,
+          "recall_hits": 1,
+          "correct_with_recall_hit": 0,
+          "partial_with_recall_hit": 0,
+          "incorrect_with_recall_hit": 1,
+          "accuracy": 0.0,
+          "partial_credit": 0.0,
+          "recall_at_5": 1.0,
+          "answer_accuracy_when_recalled": 0.0,
+          "answer_partial_credit_when_recalled": 0.0,
+          "generation_failure_rate_when_recalled": 1.0
+        }
+      }
+    },
+    "vector+bm25": {
+      "accuracy": 0.0,
+      "partial_credit": 0.0,
+      "recall_at_5": 1.0,
+      "retrieval_eligible_total": 1,
+      "recall_hits": 1,
+      "answer_accuracy_when_recalled": 0.0,
+      "answer_partial_credit_when_recalled": 0.0,
+      "generation_failure_rate_when_recalled": 1.0,
+      "correct_with_recall_hit": 0,
+      "partial_with_recall_hit": 0,
+      "incorrect_with_recall_hit": 1,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 1,
+      "avg_latency_ms": 2819.6363750030287,
+      "total_prompt_tokens": 1764,
+      "total_completion_tokens": 7,
+      "total_generation_cost_usd": 0.0013545,
+      "total_judge_prompt_tokens": 544,
+      "total_judge_completion_tokens": 47,
+      "total_judge_cost_usd": 0.002065,
+      "total_eval_cost_usd": 0.0034195,
+      "by_type": {
+        "three_hop": {
+          "total": 1,
+          "correct": 0,
+          "partial": 0,
+          "incorrect": 1,
+          "retrieval_eligible_total": 1,
+          "recall_hits": 1,
+          "correct_with_recall_hit": 0,
+          "partial_with_recall_hit": 0,
+          "incorrect_with_recall_hit": 1,
+          "accuracy": 0.0,
+          "partial_credit": 0.0,
+          "recall_at_5": 1.0,
+          "answer_accuracy_when_recalled": 0.0,
+          "answer_partial_credit_when_recalled": 0.0,
+          "generation_failure_rate_when_recalled": 1.0
+        }
+      }
+    }
+  }
+}
